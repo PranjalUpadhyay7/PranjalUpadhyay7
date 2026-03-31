@@ -132,23 +132,16 @@ I like ML that touches real things — robots that pick up bottles, drones that 
 ## 📊 GitHub Stats
 
 <div align="center">
-
-<img src="https://github-readme-stats.vercel.app/api?username=PranjalUpadhyay7&theme=dark&hide_border=true&include_all_commits=true&count_private=true" />
+<!-- 
+<img src="https://github-readme-stats.vercel.app/api?username=PranjalUpadhyay7&theme=dark&hide_border=true&include_all_commits=true&count_private=true" /> -->
 
 <br/>
 
 <img src="https://streak-stats.demolab.com/?user=PranjalUpadhyay7&theme=dark&hide_border=true" />
 
 <br/>
-
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=PranjalUpadhyay7&theme=dark&hide_border=true&layout=compact&langs_count=8" />
-
-</div>
-
-
-
-<div align="center">
-
-[![Profile Views](https://visitcount.itsvg.in/api?id=PranjalUpadhyay7&icon=2&color=6)](https://visitcount.itsvg.in)
+<!-- 
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=PranjalUpadhyay7&theme=dark&hide_border=true&layout=compact&langs_count=8" /> -->
 
 </div>
+
