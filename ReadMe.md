@@ -1,9 +1,5 @@
 <div align="center">
 
-<img src="https://avatars.githubusercontent.com/PranjalUpadhyay7" width="130" style="border-radius:50%; border: 3px solid #58A6FF;" />
-
-<br/><br/>
-
 <a href="https://git.io/typing-svg">
   <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=58A6FF&center=true&vCenter=true&width=620&lines=ML+Researcher+%40+IISER+Bhopal;RL+%7C+Robotics+%7C+Model+Compression;Closing+the+gap%3A+A100+%E2%86%92+Smartwatch" alt="Typing SVG" />
 </a>
@@ -149,17 +145,7 @@ I like ML that touches real things — robots that pick up bottles, drones that 
 
 </div>
 
----
 
-## 🏆 GitHub Trophies
-
-<div align="center">
-
-<img src="https://github-profile-trophy.vercel.app/?username=PranjalUpadhyay7&theme=darkhub&no-frame=true&no-bg=true&margin-w=6&column=-1" />
-
-</div>
-
----
 
 <div align="center">
 
