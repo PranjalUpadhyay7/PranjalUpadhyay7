@@ -1,14 +1,18 @@
 <div align="center">
 
+<img src="https://avatars.githubusercontent.com/PranjalUpadhyay7" width="130" style="border-radius:50%; border: 3px solid #58A6FF;" />
+
+<br/><br/>
+
 <a href="https://git.io/typing-svg">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=58A6FF&center=true&vCenter=true&width=600&lines=ML+Researcher+%40+IISER+Bhopal;RL+%7C+Robotics+%7C+Model+Compression;Closing+the+gap%3A+A100+%E2%86%92+Smartwatch" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=58A6FF&center=true&vCenter=true&width=620&lines=ML+Researcher+%40+IISER+Bhopal;RL+%7C+Robotics+%7C+Model+Compression;Closing+the+gap%3A+A100+%E2%86%92+Smartwatch" alt="Typing SVG" />
 </a>
 
 <br/>
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/pranjal-upadhyay7)
 [![Email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:pranjalupadhyay537@gmail.com)
-[![Coding Profile](https://img.shields.io/badge/Codolio-0A0A0A?logo=codeforces&logoColor=white)](https://codolio.com/profile/PranjalUpadhyay)
+[![Codolio](https://img.shields.io/badge/Codolio-0A0A0A?logo=codeforces&logoColor=white)](https://codolio.com/profile/PranjalUpadhyay)
 
 </div>
 
@@ -25,7 +29,7 @@ I like ML that touches real things — robots that pick up bottles, drones that 
 ## 🔬 Research Focus
 
 | Area | What I'm doing | Status |
-|------|---------------|--------|
+|------|----------------|--------|
 | 🤖 **Model Compression** | Tucker & PARAFAC tensor decomposition on VGG-16/19 for edge inference | 🟡 Active |
 | 🚁 **Robotics / VIO** | OpenVINS MSCKF on a real drone — ported C++→Python, built hovering stabilizer from scratch | 🟡 Active |
 | 🏭 **Sim-to-Real RL** | PPO-based soft gripper policy across 4 warehouse scenarios @ TCS Research | ✅ Deployed |
@@ -42,6 +46,7 @@ I like ML that touches real things — robots that pick up bottles, drones that 
 
 **[🔧 CNN Compression via Tensor Decomp.]()**
 > Compressing VGG-16/19 using Tucker & PARAFAC decomposition. 3-phase pipeline: fine-tune → decompose → recover. Finding: CPU latency is memory-bandwidth dominated, not FLOP dominated.
+>
 > `PyTorch` `Tucker` `PARAFAC` `CIFAR-100`
 
 </td>
@@ -49,6 +54,7 @@ I like ML that touches real things — robots that pick up bottles, drones that 
 
 **[🚁 Visual Inertial Odometry]()**
 > Ported OpenVINS MSCKF C++→Python. Deployed on a real drone at MoonLab, IISER Bhopal. Built hovering stabilization module from scratch from literature.
+>
 > `Python` `C++` `ROS2` `EKF` `MSCKF`
 
 </td>
@@ -57,14 +63,16 @@ I like ML that touches real things — robots that pick up bottles, drones that 
 <td width="50%" valign="top">
 
 **[🧠 DyTox Extensions](https://github.com/PranjalUpadhyay7/dytox_modification)**
-> Task-Aware Encoder + Dynamic Positional Embeddings on CIFAR-100. Reduced forgetting by 3.9%. Found degradation is scale-invariant across 10-task and 50-task protocols.
+> Task-Aware Encoder + Dynamic Positional Embeddings on CIFAR-100. Reduced forgetting by 3.9%. Degradation is scale-invariant across 10-task and 50-task protocols.
+>
 > `PyTorch` `Transformers` `Continual Learning`
 
 </td>
 <td width="50%" valign="top">
 
 **[📡 Federated Mood Prediction](https://github.com/PranjalUpadhyay7/Federated_Learning)**
-> FL pipeline over 213 simulated clients. TabM hit 69.95% accuracy vs. centralized — within 2%. Outperformed LSTM and deep MLP on loss and accuracy.
+> FL pipeline over 213 simulated clients. TabM hit 69.95% accuracy — within 2% of centralized. Outperformed LSTM and deep MLP on both loss and accuracy.
+>
 > `Flwr` `TabM` `LSTM` `Privacy-Preserving ML`
 
 </td>
@@ -73,7 +81,8 @@ I like ML that touches real things — robots that pick up bottles, drones that 
 <td width="50%" valign="top">
 
 **[🎓 NovaLearn](https://devpost.com/software/novalearn-ty2b3k)**
-> Chrome extension turning YouTube into interactive study sessions. Built producer–director multi-agent architecture. 4-scene parallel video gen pipeline via Amazon Nova Reel → FFmpeg → S3.
+> Chrome extension turning YouTube into interactive study sessions. Producer–director multi-agent architecture. 4-scene parallel video gen via Amazon Nova Reel → FFmpeg → S3 in ~4 min.
+>
 > `React` `TypeScript` `AWS Bedrock` `FastAPI`
 
 </td>
@@ -81,6 +90,7 @@ I like ML that touches real things — robots that pick up bottles, drones that 
 
 **[🚗 Yatry: Ride Sharing Engine](https://github.com/PranjalUpadhyay7/yatry)**
 > City modeled as Weighted Tree Graph. Affinity Propagation clustering on Route+Time matrices. 83.3% average per-head savings with Fair Cost-Sharing + Golden Ratio optimization.
+>
 > `Python` `NetworkX` `PuLP` `Scikit-Learn`
 
 </td>
@@ -120,7 +130,6 @@ I like ML that touches real things — robots that pick up bottles, drones that 
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
-![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
 
 ---
 
@@ -128,19 +137,25 @@ I like ML that touches real things — robots that pick up bottles, drones that 
 
 <div align="center">
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=PranjalUpadhyay7&theme=dark&hide_border=true&include_all_commits=true&count_private=true)
+<img src="https://github-readme-stats.vercel.app/api?username=PranjalUpadhyay7&theme=dark&hide_border=true&include_all_commits=true&count_private=true" />
 
-![Streak Stats](https://streak-stats.demolab.com/?user=PranjalUpadhyay7&theme=dark&hide_border=true)
+<br/>
 
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=PranjalUpadhyay7&theme=dark&hide_border=true&include_all_commits=true&count_private=true&layout=compact)
+<img src="https://streak-stats.demolab.com/?user=PranjalUpadhyay7&theme=dark&hide_border=true" />
+
+<br/>
+
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=PranjalUpadhyay7&theme=dark&hide_border=true&layout=compact&langs_count=8" />
 
 </div>
+
+---
 
 ## 🏆 GitHub Trophies
 
 <div align="center">
 
-![Trophies](https://github-profile-trophy.vercel.app/?username=PranjalUpadhyay7&theme=darkhub&no-frame=true&no-bg=true&margin-w=6&column=7)
+<img src="https://github-profile-trophy.vercel.app/?username=PranjalUpadhyay7&theme=darkhub&no-frame=true&no-bg=true&margin-w=6&column=-1" />
 
 </div>
 
