@@ -16,7 +16,7 @@
 
 ## 💫 About Me
 
-I like ML that touches real things — robots that pick up bottles, drones that don't crash, models that fit on a phone. Final-year CS undergrad at **IISER Bhopal** (graduating May 2026), working at the intersection of applied ML and systems.
+I like ML that touches real things — robots that pick up bottles, drones that don't crash, models that fit on a phone. Final-year BS-MS dual degree in CSE at **IISER Bhopal** (graduating May 2027), working at the intersection of applied ML and systems.
 
 > *Trying to close the gap between "works on A100" and "works on a smartwatch."*
 
