@@ -84,7 +84,7 @@ def banner():
     )
 
 
-SECTIONS = ["ABOUT", "HOW I WORK", "SELECTED WORK", "EXPERIENCE", "SKILLS", "CONTACT"]
+SECTIONS = ["ABOUT", "SELECTED WORK", "EXPERIENCE", "SKILLS", "CONTACT"]
 
 
 def section(i, label):
@@ -117,21 +117,6 @@ def stroke(color=T, w=4, fill="none"):
 
 
 def emblems():
-    # principles
-    emblem("principle-1.svg", "Guard the model", "A model node behind a barrier of gate bars.",
-           f'<circle cx="46" cy="80" r="16" {stroke(M)}/>'
-           f'<path d="M80 36 V124 M96 36 V124 M112 36 V124" {stroke(T, 5)}/>'
-           f'<path d="M64 80 H76" {stroke(A)}/><path d="M118 80 H138" {stroke(A)} stroke-dasharray="3 7"/>')
-    emblem("principle-2.svg", "Benchmark before claiming", "Bars measured against a baseline rule.",
-           f'<path d="M30 124 H132" {stroke(M, 3)}/>'
-           f'<rect x="38" y="84" width="20" height="40" {stroke(T)}/><rect x="70" y="60" width="20" height="64" {stroke(T)}/>'
-           f'<rect x="102" y="40" width="20" height="84" {stroke(T)}/>'
-           f'<path d="M30 84 H132" {stroke(A, 3)} stroke-dasharray="6 6"/>')
-    emblem("principle-3.svg", "Report what failed", "A series of bars where one dips below the line and is marked.",
-           f'<path d="M30 70 H132" {stroke(M, 3)} stroke-dasharray="6 6"/>'
-           f'<rect x="38" y="44" width="20" height="26" {stroke(T)}/><rect x="70" y="40" width="20" height="30" {stroke(T)}/>'
-           f'<rect x="102" y="70" width="20" height="46" {stroke(A)}/>'
-           f'<path d="M104 124 L120 140 M120 124 L104 140" {stroke(A)}/>')
     # projects
     emblem("project-1.svg", "AP-Copilot", "A shield with an approval gate inside.",
            f'<path d="M80 26 L124 42 V82 C124 108 104 124 80 134 C56 124 36 108 36 82 V42 Z" {stroke(T)}/>'

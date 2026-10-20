@@ -10,16 +10,6 @@ I build LLM agents with safety guardrails, deep-learning systems, and models tha
 
 **Role:** Machine Learning Engineer · **Education:** IISER Bhopal, BS-MS, Major in Computer Science (EECS), Minor in Data Science, exp. May 2027 · **Looking for:** full-time ML Engineer roles in India · **Based in:** Bhopal, India
 
-<h2 id="how-i-work"><img src="assets/section-how-i-work.svg" alt="How I work" width="100%"></h2>
-
-<table>
-<tr>
-<td width="33%" valign="top"><img src="assets/principle-1.svg" alt="Emblem: a model behind a gate" width="72"><br><b>Guard the model, do not trust it.</b><br>AP-Copilot uses deterministic guardrails and an approval gate: 0 unsafe writes on its 30-task benchmark.</td>
-<td width="33%" valign="top"><img src="assets/principle-2.svg" alt="Emblem: bars measured against a baseline" width="72"><br><b>Benchmark before claiming.</b><br>A 30-task agent benchmark, a 20-detector VisDrone benchmark, 219/219 mutants killed.</td>
-<td width="33%" valign="top"><img src="assets/principle-3.svg" alt="Emblem: one bar falling below the line" width="72"><br><b>Report what failed.</b><br>DyTox: my DCPE extension cost 3.2 to 3.3 points and I report it. TCS results are labelled simulation only.</td>
-</tr>
-</table>
-
 <h2 id="selected-work"><img src="assets/section-selected-work.svg" alt="Selected work" width="100%"></h2>
 
 <table>
@@ -45,14 +35,14 @@ I build LLM agents with safety guardrails, deep-learning systems, and models tha
 </tr>
 <tr>
 <td width="110" valign="top"><img src="assets/project-6.svg" alt="Emblem: top-down quadcopter" width="96"></td>
-<td valign="top"><b>Applied Robotics: NIDAR 2.0</b> (team lead, 6 members). Building an 8-drone swarm that autonomously searches a disaster zone and delivers rescue packets over a custom communication network. That is the planned target; in simulation, 2 recon and 4 delivery drones covered 10 hectares in under 5 min. I benchmarked 20 object detectors on VisDrone (LEAF-YOLO-s, 4.28M params, beats YOLOv8x, 68.16M) and navigate without GNSS using MSCKF + EKF visual-inertial estimation on a Jetson Orin Nano 8 GB, flight-validated at 50 to 80 m.<br><code>4.5 to 4.6 FPS on Jetson Nano, TensorRT FP16</code> <code>OpenVINS update 7.5 -> 3.7 to 4.0 ms</code> <code>mean ATE ratio 0.98</code></td>
+<td valign="top"><b>Applied Robotics: NIDAR 2.0</b> (team lead, 6 members). Building an 8-drone swarm that autonomously searches a disaster zone and delivers rescue packets over a custom communication network. That is the planned target; in simulation, 2 recon and 4 delivery drones covered 10 hectares in under 5 min. I benchmarked 11 public detectors on VisDrone (LEAF-YOLO-s, 4.28M params, beats YOLOv8x, 68.16M) and navigate without GNSS using MSCKF + EKF visual-inertial estimation on a Jetson Orin Nano 8 GB, flight-validated at 50 to 80 m.<br><code>mAP@0.5 0.487 vs 0.438 (LEAF-YOLO-s vs YOLOv8x)</code> <code>4.5 to 4.6 FPS on Jetson Nano, TensorRT FP16</code> <code>OpenVINS update 7.5 -> 3.7 to 4.0 ms</code> <code>mean ATE ratio 0.98</code><br><a href="https://github.com/PranjalUpadhyay7/Detection_algo_benchmark">Detection_algo_benchmark</a> (detector benchmark; the swarm and VIO code are not public)</td>
 </tr>
 </table>
 
 **Measurement notes.**
 - AP-Copilot figures come from my own 30-task benchmark (checked by machine against what a fake vehicle received, no LLM judge). "Unsafe write" means a value the project's own validator would reject. The 219 mutants cover the validation layer only, not the whole codebase.
 - TCS results are simulation only. The NIDAR swarm is simulation-validated; the full 8-drone mission is the planned target and has not flown. GNSS-denied flights were validated at 50 to 80 m. The OpenVINS speed-up was a 3-person effort at accuracy parity.
-- The detector comparison is mAP@0.5 on VisDrone: 0.487 for LEAF-YOLO-s vs 0.427 for YOLOv8x. FPS is steady-state on a Jetson Nano.
+- The detector comparison is mAP@0.5 on the VisDrone2019-DET validation set (548 images, person class), run through that repo's own C++ pipeline on a PC CPU. The Jetson Nano (4 GB) FPS is end to end for LEAF-YOLO-s only; the other models were not measured on the device.
 - The Liquid NN result is from my own experiments; the paper is in preparation. Federated results are as reported in that repo's evaluation notes; clients ran as Flower processes, not on phones.
 
 <h2 id="experience"><img src="assets/section-experience.svg" alt="Experience" width="100%"></h2>

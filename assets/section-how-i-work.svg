@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 48" width="1200" height="48" role="img">
-<title>Section: How I Work</title>
-<desc>Header bar for the How I Work section.</desc>
-<rect width="1200" height="48" rx="0" fill="#0B1020"/>
-<rect x="0" y="0" width="1200" height="48" fill="#111832"/><rect x="0" y="0" width="6" height="48" fill="#2DD4BF"/><text x="28" y="31" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="5" fill="#E6EDF7">HOW I WORK</text><line x1="250" y1="24" x2="1130" y2="24" stroke="#26345E" stroke-width="2"/><text x="1172" y="30" text-anchor="end" font-family="ui-monospace, 'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="15" fill="#F5B544">02</text>
-</svg>

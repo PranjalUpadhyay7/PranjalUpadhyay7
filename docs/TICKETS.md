@@ -8,3 +8,4 @@
 | T-4 | Banner trace overlaps text | bug | P1 | T-1 | Done | M-002 |
 | T-5 | Resolve test-count / attribution conflicts | chore | P1 | owner | Blocked | needs owner decision, see PROGRESS.md |
 | T-6 | Phase 2 READMEs | feature | P2 | repos locally | Todo | repos not on this machine |
+- T-7 (2026-10-20): remove How I work, link Detection_algo_benchmark: Done
