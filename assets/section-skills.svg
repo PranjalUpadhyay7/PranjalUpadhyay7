@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 48" width="1200" height="48" role="img">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 44" width="720" height="44" role="img">
 <title>Section: Skills</title>
 <desc>Header bar for the Skills section.</desc>
-<rect width="1200" height="48" rx="0" fill="#0B1020"/>
-<rect x="0" y="0" width="1200" height="48" fill="#111832"/><rect x="0" y="0" width="6" height="48" fill="#2DD4BF"/><text x="28" y="31" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="5" fill="#E6EDF7">SKILLS</text><line x1="190" y1="24" x2="1130" y2="24" stroke="#26345E" stroke-width="2"/><text x="1172" y="30" text-anchor="end" font-family="ui-monospace, 'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="15" fill="#F5B544">04</text>
+<rect width="720" height="44" rx="0" fill="#0B1020"/>
+<rect width="720" height="44" fill="#111832"/><rect width="6" height="44" fill="#2DD4BF"/><text x="24" y="29" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="19" font-weight="700" letter-spacing="5" fill="#E6EDF7">SKILLS</text><text x="696" y="28" text-anchor="end" font-family="ui-monospace, 'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="15" fill="#F5B544">03</text>
 </svg>

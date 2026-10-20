@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" role="img">
-<title>DROID-SLAM on OAK-D Pro</title>
-<desc>A camera observing a sparse point map.</desc>
-<rect width="160" height="160" rx="14" fill="#0B1020"/>
-<rect x="3" y="3" width="154" height="154" rx="14" fill="#111832" stroke="#26345E" stroke-width="2"/><circle cx="40" cy="112" r="4" fill="#8FA0C0"/><circle cx="62" cy="128" r="4" fill="#8FA0C0"/><circle cx="84" cy="118" r="4" fill="#8FA0C0"/><circle cx="110" cy="132" r="4" fill="#8FA0C0"/><circle cx="128" cy="108" r="4" fill="#8FA0C0"/><circle cx="52" cy="96" r="4" fill="#8FA0C0"/><rect x="62" y="30" width="36" height="26" rx="5" fill="#111832" stroke="#F5B544" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="80" cy="43" r="7" fill="none" stroke="#2DD4BF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M80 56 L40 112" fill="none" stroke="#2DD4BF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/><path d="M80 56 L84 118" fill="none" stroke="#2DD4BF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/><path d="M80 56 L128 108" fill="none" stroke="#2DD4BF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
-</svg>

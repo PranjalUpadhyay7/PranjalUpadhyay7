@@ -84,29 +84,29 @@ def banner():
     )
 
 
-SECTIONS = ["ABOUT", "SELECTED WORK", "EXPERIENCE", "SKILLS", "CONTACT"]
+SECTIONS = ["SELECTED WORK", "EXPERIENCE", "SKILLS", "CONTACT"]
 
 
 def section(i, label):
     body = (
-        f'<rect x="0" y="0" width="1200" height="48" fill="{P["panel"]}"/>'
-        f'<rect x="0" y="0" width="6" height="48" fill="{P["teal"]}"/>'
-        f'<text x="28" y="31" font-family="{SANS}" font-size="18" font-weight="700" letter-spacing="5" fill="{P["text"]}">{label}</text>'
-        f'<line x1="{60 + 15 * len(label) + 40}" y1="24" x2="1130" y2="24" stroke="{P["line"]}" stroke-width="2"/>'
-        f'<text x="1172" y="30" text-anchor="end" font-family="{MONO}" font-size="15" fill="{P["amber"]}">{i:02d}</text>'
+        f'<rect width="720" height="44" fill="{P["panel"]}"/>'
+        f'<rect width="6" height="44" fill="{P["teal"]}"/>'
+        f'<text x="24" y="29" font-family="{SANS}" font-size="19" font-weight="700" letter-spacing="5" fill="{P["text"]}">{label}</text>'
+        f'<text x="696" y="28" text-anchor="end" font-family="{MONO}" font-size="15" fill="{P["amber"]}">{i:02d}</text>'
     )
     slug = label.lower().replace(" ", "-")
     write(
         f"section-{slug}.svg",
-        svg(1200, 48, f"Section: {label.title()}", f"Header bar for the {label.title()} section.", body),
+        svg(720, 44, f"Section: {label.title()}", f"Header bar for the {label.title()} section.", body),
     )
+
+
+EMBLEMS = {}
 
 
 def emblem(name, title, desc, inner):
-    frame = (
-        f'<rect x="3" y="3" width="154" height="154" rx="14" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
-    )
-    write(name, svg(160, 160, title, desc, frame + inner, rx=14))
+    """Emblem drawings are only embedded in cards (see card()); no standalone files."""
+    EMBLEMS[name] = inner
 
 
 T, A, M = P["teal"], P["amber"], P["muted"]
@@ -161,6 +161,138 @@ def emblems():
            + f'<circle cx="80" cy="43" r="7" {stroke(T, 3)}/>'
            + "".join(f'<path d="M80 56 L{x} {y}" {stroke(T, 1.5)} opacity="0.5"/>' for x, y in pts[::2]))
 
+def chip_w(text, size=16):
+    return int(len(text) * size * 0.6 + 26)
+
+
+def chips(items, x0, y0, x_max, size=16, color=None, row_h=38):
+    """Flow rounded chips left to right, wrapping at x_max. Returns (svg, bottom_y)."""
+    out, x, y = [], x0, y0
+    for t in items:
+        w = chip_w(t, size)
+        if x + w > x_max and x > x0:
+            x, y = x0, y + row_h
+        out.append(
+            f'<rect x="{x}" y="{y}" width="{w}" height="30" rx="15" fill="{P["base"]}" stroke="{color or P["line"]}" stroke-width="1.5"/>'
+            f'<text x="{x + 13}" y="{y + 20}" font-family="{MONO}" font-size="{size}" fill="{P["text"]}">{escape(t)}</text>'
+        )
+        x += w + 10
+    return "".join(out), y + 30
+
+
+def stats():
+    tiles = [
+        ("0", "unsafe writes on the", "30-task agent benchmark"),
+        ("2x", "faster VIO update at", "accuracy parity"),
+        ("~340x", "lower control-loop", "latency, liquid NN"),
+        ("-3.9 pp", "forgetting from my", "DyTox extension"),
+    ]
+    body, w = "", 167
+    for i, (n, l1, l2) in enumerate(tiles):
+        x = i * (w + 16) + 2
+        c = P["teal"] if i % 2 == 0 else P["amber"]
+        body += (
+            f'<rect x="{x}" y="2" width="{w}" height="116" rx="12" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
+            f'<rect x="{x}" y="2" width="{w}" height="5" rx="2" fill="{c}"/>'
+            f'<text x="{x + w / 2}" y="60" text-anchor="middle" font-family="{MONO}" font-size="{40 if len(n) < 6 else 34}" font-weight="700" fill="{c}">{escape(n)}</text>'
+            f'<text x="{x + w / 2}" y="87" text-anchor="middle" font-family="{SANS}" font-size="13.5" fill="{P["muted"]}">{escape(l1)}</text>'
+            f'<text x="{x + w / 2}" y="105" text-anchor="middle" font-family="{SANS}" font-size="13.5" fill="{P["muted"]}">{escape(l2)}</text>'
+        )
+    write("stats.svg", svg(720, 120, "Key results",
+          "0 unsafe writes on the 30-task AP-Copilot benchmark; 2x faster OpenVINS update at accuracy parity; about 340x lower control-loop latency for the liquid neural network controller; 3.9 percentage points less forgetting from the DyTox Task-Aware Encoder.", body))
+
+
+CARDS = [
+    ("ap-copilot", "project-1.svg", "AP-Copilot", "PUBLIC RELEASE SOON",
+     "LLM agent that configures ArduPilot, guarded by validators",
+     ["20/30 → 30/30 tasks", "0 unsafe writes", "219/219 mutants killed"],
+     "AP-Copilot, public release soon. A safety-critical LLM agent that configures ArduPilot/Pixhawk parameters from plain-language requests; deterministic guardrails and a human-approval gate block unsafe changes. Hybrid RAG with BM25, embeddings and RRF. 20/30 to 30/30 tasks, 0 unsafe writes, 219/219 mutants killed."),
+    ("federated", "project-2.svg", "Federated Mood Prediction", "PUBLIC REPO",
+     "Federated mood screening from phone signals, 8 countries",
+     ["TabM 69.95%", "LSTM 68.28%", "within 2% of centralized"],
+     "Federated Mood Prediction for Early Depression Screening. Flower pipeline predicting 5-class mood from smartphone behavioural signals, DiversityOne dataset, non-IID clients. TabM 69.95%, LSTM 68.28%, within 2% of centralized."),
+    ("novalearn", "project-3.svg", "NovaLearn", "AMAZON NOVA HACKATHON 2025",
+     "Multi-agent study companion on 4 Amazon Nova models",
+     ["24 s animation in ~4 min", "Chrome extension"],
+     "NovaLearn. Planner plus executor multi-agent study companion on four Amazon Nova models through an AWS Bedrock layer; a 4-scene parallel pipeline produces a 24 second animation in about 4 minutes; shipped as a Chrome extension."),
+    ("dytox", "project-4.svg", "DyTox Modification", "PUBLIC REPO",
+     "Continual-learning transformer: one win, one failure",
+     ["forgetting 18.7 → 14.8%", "DCPE cost 3.2–3.3 pts"],
+     "Two extensions to the DyTox continual-learning transformer on CIFAR-100. The Task-Aware Encoder cut forgetting from 18.7% to 14.8%. Dynamic Contextual Positional Embeddings cost 3.2 to 3.3 points, which I report."),
+    ("liquid-nn", "project-5.svg", "Liquid NN Controller", "PAPER IN PREPARATION",
+     "Liquid-NN adaptive controller with online updates",
+     ["~340x lower latency", "~19% lower tracking error"],
+     "Liquid neural network adaptive controller with online parameter updates on a background thread; about 340x lower control-loop latency and about 19% lower tracking error than a DNN plus ODE-solver baseline. Journal paper in preparation."),
+    ("nidar", "project-6.svg", "Applied Robotics: NIDAR 2.0", "SWARM IN SIMULATION · BENCHMARK PUBLIC",
+     "8-drone disaster-search swarm. Team lead, 6 members.",
+     ["VIO 7.5 → 3.7–4.0 ms", "4.5 FPS YOLO on Jetson Nano", "GNSS-denied, 50–80 m flights"],
+     "NIDAR 2.0, team lead of 6. Building an 8-drone disaster-search swarm; validated in simulation with 2 recon and 4 delivery drones over 10 hectares; the full mission is the planned target. OpenVINS backend update 7.5 ms to 3.7 to 4.0 ms; LEAF-YOLO-s at 4.5 to 4.6 FPS on a Jetson Nano; GNSS-denied navigation flight-validated at 50 to 80 m."),
+    ("openvins-python", "project-7.svg", "OpenVINS in Python", "PUBLIC RELEASE SOON",
+     "Data-oriented visual-inertial odometry in Python",
+     ["Python", "data-oriented design"],
+     "My Python implementation of the OpenVINS visual-inertial estimator, written with data-oriented design. Public release soon."),
+    ("droid-slam", "project-8.svg", "DROID-SLAM on OAK-D", "PUBLIC REPO",
+     "Real-time visual SLAM from a live OAK-D camera",
+     ["fork of DROID-SLAM", "live OAK-D demo"],
+     "My fork of DROID-SLAM (Teed and Deng) that adds a real-time demo driven by a live OAK-D camera stream."),
+]
+
+
+def card(slug, emb, title, status, tagline, items, alt):
+    chip_svg, bottom = chips(items, 172, 118, 700, 15)
+    h = bottom + 22
+    body = (
+        f'<rect x="2" y="2" width="716" height="{h - 4}" rx="14" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
+        f'<g transform="translate(22,{(h - 120) / 2:.0f}) scale(0.75)">{EMBLEMS[emb]}</g>'
+        f'<text x="172" y="38" font-family="{SANS}" font-size="12" letter-spacing="2.5" fill="{P["amber"]}" font-weight="600">{escape(status)}</text>'
+        f'<text x="172" y="72" font-family="{SANS}" font-size="28" font-weight="700" fill="{P["text"]}">{escape(title)}</text>'
+        f'<text x="172" y="98" font-family="{SANS}" font-size="17" fill="{P["muted"]}">{escape(tagline)}</text>'
+        + chip_svg
+    )
+    write(f"card-{slug}.svg", svg(720, h, title, alt, body))
+
+
+def experience():
+    cards = [
+        ("experience-tcs", "TCS Research & Innovation", "Research Intern, AI and Robotics", "12 MAY – 31 AUG 2025",
+         "Soft-gripper simulation, RGB-D 6-DoF grasping, PPO policy. Simulation only.", P["teal"],
+         "TCS Research and Innovation, Research Intern in AI and Robotics, 12 May to 31 Aug 2025. Robotic Mobile Manipulation Platform for Retail and Warehouses: PyBullet platform with 4 warehouse scenarios and 20 object categories, RGB-D 6-DoF grasp pose prediction in clutter, PPO policy trained over a 48-hour simulation run, 15 to 30 s per-object pick cycles. Simulation only."),
+        ("experience-moon", "MOON Lab, IISER Bhopal", "Undergraduate researcher, 2 years", "ADVISOR: DR. P. B. SUJIT",
+         "Perception, state estimation, GNSS-denied navigation, drone hardware.", P["amber"],
+         "MOON Lab, IISER Bhopal, undergraduate researcher for two years, advised by Dr. P. B. Sujit. Perception, state estimation, adaptive control and GNSS-denied navigation; algorithms deployed on Jetson edge devices and drones; Python implementation of OpenVINS."),
+    ]
+    for slug, org, role, tag, line, c, alt in cards:
+        body = (
+            f'<rect x="2" y="2" width="716" height="106" rx="14" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
+            f'<rect x="2" y="2" width="8" height="106" rx="3" fill="{c}"/>'
+            f'<text x="30" y="40" font-family="{SANS}" font-size="24" font-weight="700" fill="{P["text"]}">{escape(org)}</text>'
+            f'<text x="30" y="66" font-family="{SANS}" font-size="17" fill="{P["muted"]}">{escape(role)}</text>'
+            f'<text x="30" y="92" font-family="{SANS}" font-size="15" fill="{P["muted"]}" opacity="0.85">{escape(line)}</text>'
+            f'<text x="696" y="34" text-anchor="end" font-family="{SANS}" font-size="12" letter-spacing="2.5" fill="{P["amber"]}" font-weight="600">{escape(tag)}</text>'
+        )
+        write(f"{slug}.svg", svg(720, 110, f"{org}, {role}", alt, body))
+
+
+SKILLS = [
+    ("ML & DEEP LEARNING", P["teal"], ["PyTorch", "TabM", "LSTM", "Transformers", "Continual learning", "Federated learning", "RL (PPO)", "Object detection"]),
+    ("ROBOTICS", P["amber"], ["VIO: OpenVINS, MSCKF, EKF", "Visual SLAM", "GNSS-denied navigation", "PyBullet", "Adaptive control", "ROS 2", "Drone + edge hardware"]),
+    ("GENAI & NLP", P["teal"], ["LangGraph", "Hybrid RAG", "Agent guardrails", "AWS Bedrock", "Whisper"]),
+    ("LANGUAGES", P["muted"], ["Python", "C++", "TypeScript", "Rust"]),
+    ("DEPLOYMENT", P["muted"], ["FastAPI", "TensorRT FP16", "Jetson Nano / Orin Nano", "ArduPilot", "pytest + mutmut"]),
+]
+
+
+def skills():
+    body, y = "", 8
+    for label, color, items in SKILLS:
+        body += f'<text x="4" y="{y + 12}" font-family="{SANS}" font-size="12" letter-spacing="3" font-weight="700" fill="{color}">{escape(label)}</text>'
+        c, bottom = chips(items, 2, y + 22, 716, 15, color)
+        body += c
+        y = bottom + 20
+    alt = "Skills. " + " ".join(f"{l.title()}: {', '.join(i)}." for l, _, i in SKILLS)
+    write("skills.svg", svg(720, y, "Skills", alt, body))
+
+
 
 def footer():
     body = (
@@ -174,9 +306,16 @@ def footer():
 
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
+    for f in os.listdir(OUT):
+        os.remove(os.path.join(OUT, f))
     banner()
     for i, s in enumerate(SECTIONS, 1):
         section(i, s)
     emblems()
+    for c in CARDS:
+        card(*c)
+    stats()
+    experience()
+    skills()
     footer()
     print("wrote", len(os.listdir(OUT)), "files to", os.path.normpath(OUT))
