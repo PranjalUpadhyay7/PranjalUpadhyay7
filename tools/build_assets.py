@@ -154,6 +154,12 @@ def emblems():
            f'<polyline points="26,118 52,96 74,104 100,70 134,52" {stroke(T, 4)} stroke-dasharray="2 8"/>'
            f'<path d="M96 86 L124 78 L116 106 Z" {stroke(A)}/>'
            f'<circle cx="26" cy="118" r="5" fill="{M}"/>')
+    pts = [(40, 112), (62, 128), (84, 118), (110, 132), (128, 108), (52, 96)]
+    emblem("project-8.svg", "DROID-SLAM on OAK-D Pro", "A camera observing a sparse point map.",
+           "".join(f'<circle cx="{x}" cy="{y}" r="4" fill="{M}"/>' for x, y in pts)
+           + f'<rect x="62" y="30" width="36" height="26" rx="5" {stroke(A, 4, P["panel"])}/>'
+           + f'<circle cx="80" cy="43" r="7" {stroke(T, 3)}/>'
+           + "".join(f'<path d="M80 56 L{x} {y}" {stroke(T, 1.5)} opacity="0.5"/>' for x, y in pts[::2]))
 
 
 def footer():

@@ -41,6 +41,10 @@ I build LLM agents with safety guardrails, deep-learning systems, and robotics s
 <td width="110" valign="top"><img src="assets/project-7.svg" alt="Emblem: camera pose along a trajectory" width="96"></td>
 <td valign="top"><b>OpenVINS in Python.</b> My Python implementation of the OpenVINS visual-inertial estimator, written with data-oriented design. This is separate from the C++ speed-up above. Public release soon.<br>Python</td>
 </tr>
+<tr>
+<td width="110" valign="top"><img src="assets/project-8.svg" alt="Emblem: camera observing a point map" width="96"></td>
+<td valign="top"><b>DROID-SLAM on OAK-D Pro.</b> My fork of DROID-SLAM (Teed and Deng, NeurIPS 2021) that adds a real-time demo driven by a live OAK-D camera stream.<br>Python, PyTorch. <a href="https://github.com/PranjalUpadhyay7/DROID-SLAM-on-OAKD_pro-realtime">DROID-SLAM-on-OAKD_pro-realtime</a></td>
+</tr>
 </table>
 
 **Measurement notes.**
@@ -51,7 +55,7 @@ I build LLM agents with safety guardrails, deep-learning systems, and robotics s
 
 <h2 id="experience"><img src="assets/section-experience.svg" alt="Experience" width="100%"></h2>
 
-**TCS Research & Innovation, Research Intern, AI and Robotics (May to Jul 2025).** A PyBullet simulation platform (4 warehouse scenarios) to train and validate an in-house soft gripper across 20 object categories; an RGB-D pipeline predicting 6-DoF grasp poses in clutter; a PPO grasping policy trained over a 48-hour simulation run, with 15 to 30 s per-object pick cycles. Simulation only.
+**TCS Research & Innovation, Research Intern, AI and Robotics (12 May to 31 Aug 2025, [certificate](https://github.com/PranjalUpadhyay7/My_certificates/blob/main/2924342-Pranjal%20Upadhyay%C2%A0.pdf)).** Project: Robotic Mobile Manipulation Platform for Retail and Warehouses. I built a PyBullet simulation platform (4 warehouse scenarios) to train and validate an in-house soft gripper across 20 object categories, an RGB-D pipeline predicting 6-DoF grasp poses in clutter, and a PPO grasping policy trained over a 48-hour simulation run, with 15 to 30 s per-object pick cycles. Simulation only.
 
 **MOON Lab, IISER Bhopal, undergraduate researcher (two years).** Perception, state estimation, adaptive control and GNSS-denied navigation, advised by Dr. P. B. Sujit. I have deployed algorithms on Jetson edge devices and drones, written a Python implementation of OpenVINS, and work on the drone hardware side as well as the software.
 
@@ -59,7 +63,7 @@ I build LLM agents with safety guardrails, deep-learning systems, and robotics s
 
 **Languages & Data:** Python, C++, TypeScript, Rust (Tauri)<br>
 **ML & Deep Learning:** PyTorch, TabM, LSTM, transformers, continual learning, federated learning (Flower), reinforcement learning (PPO, PyBullet), object detection (YOLO family, LEAF-YOLO), visual-inertial estimation (MSCKF, EKF)<br>
-**Robotics:** visual-inertial odometry (OpenVINS, MSCKF, EKF), GNSS-denied navigation, grasp-pose prediction and RL in simulation (PyBullet), adaptive control, ROS 2, drone and edge-hardware integration<br>
+**Robotics:** visual-inertial odometry (OpenVINS, MSCKF, EKF), visual SLAM (DROID-SLAM), GNSS-denied navigation, grasp-pose prediction and RL in simulation (PyBullet), adaptive control, ROS 2, drone and edge-hardware integration<br>
 **GenAI & NLP:** LangGraph, hybrid RAG (BM25, embeddings, RRF), LLM agent guardrails, AWS Bedrock (Amazon Nova), Whisper<br>
 **Deployment:** FastAPI, TensorRT FP16, Jetson Nano and Orin Nano, ArduPilot/pymavlink, Chrome extensions, pytest and mutation testing
 
