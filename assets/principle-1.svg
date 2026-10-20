@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" role="img">
+<title>Guard the model</title>
+<desc>A model node behind a barrier of gate bars.</desc>
+<rect width="160" height="160" rx="14" fill="#0B1020"/>
+<rect x="3" y="3" width="154" height="154" rx="14" fill="#111832" stroke="#26345E" stroke-width="2"/><circle cx="46" cy="80" r="16" fill="none" stroke="#8FA0C0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M80 36 V124 M96 36 V124 M112 36 V124" fill="none" stroke="#2DD4BF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M64 80 H76" fill="none" stroke="#F5B544" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M118 80 H138" fill="none" stroke="#F5B544" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 7"/>
+</svg>

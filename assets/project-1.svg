@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" role="img">
+<title>AP-Copilot</title>
+<desc>A shield with an approval gate inside.</desc>
+<rect width="160" height="160" rx="14" fill="#0B1020"/>
+<rect x="3" y="3" width="154" height="154" rx="14" fill="#111832" stroke="#26345E" stroke-width="2"/><path d="M80 26 L124 42 V82 C124 108 104 124 80 134 C56 124 36 108 36 82 V42 Z" fill="none" stroke="#2DD4BF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M62 70 V96 M98 70 V96 M62 84 H98" fill="none" stroke="#F5B544" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
