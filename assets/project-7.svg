@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" role="img">
+<title>OpenVINS in Python</title>
+<desc>A camera pose frustum moving along an estimated trajectory.</desc>
+<rect width="160" height="160" rx="14" fill="#0B1020"/>
+<rect x="3" y="3" width="154" height="154" rx="14" fill="#111832" stroke="#26345E" stroke-width="2"/><polyline points="26,118 52,96 74,104 100,70 134,52" fill="none" stroke="#2DD4BF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 8"/><path d="M96 86 L124 78 L116 106 Z" fill="none" stroke="#F5B544" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="26" cy="118" r="5" fill="#8FA0C0"/>
+</svg>

@@ -150,6 +150,10 @@ def emblems():
     rotors = "".join(f'<circle cx="{80 + 40 * sx}" cy="{80 + 40 * sy}" r="17" {stroke(T, 3.5)}/>' for sx in (-1, 1) for sy in (-1, 1))
     emblem("project-6.svg", "Applied robotics, NIDAR 2.0", "Top-down outline of a quadcopter.",
            arms + rotors + f'<rect x="68" y="68" width="24" height="24" rx="5" {stroke(A, 4, P["panel"])}/>')
+    emblem("project-7.svg", "OpenVINS in Python", "A camera pose frustum moving along an estimated trajectory.",
+           f'<polyline points="26,118 52,96 74,104 100,70 134,52" {stroke(T, 4)} stroke-dasharray="2 8"/>'
+           f'<path d="M96 86 L124 78 L116 106 Z" {stroke(A)}/>'
+           f'<circle cx="26" cy="118" r="5" fill="{M}"/>')
 
 
 def footer():

@@ -6,3 +6,4 @@
 - Section headers are `<h2 id><img alt></h2>` so anchors (#selected-work, #contact) and heading structure work; verified through GitHub's markdown API (ids are kept, prefixed user-content-).
 - Fact-sheet claims with no local repo file (Federated, DyTox, Liquid NN, TCS, NIDAR sim/VIO) are used as supplied by the owner; repo-checkable claims were checked. Where the repo disagrees with the fact sheet, the README uses the repo-verified wording or omits the number (see PROGRESS.md "Open conflicts").
 - No third-party widgets, badges, emoji headings, e-mail or phone number. Model-compression work is not mentioned anywhere (owner request 2026-10-20).
+- 2026-10-20 Added robotics to About/Experience/Skills and an 'OpenVINS in Python' row (owner statement: 2 yrs MOON Lab, Python OpenVINS in data-oriented design, public release soon; no code or metrics found locally, so no numbers). Did NOT claim swarm deployment: swarm remains simulation-validated per fact sheet.

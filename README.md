@@ -6,7 +6,7 @@
 
 <h2 id="about"><img src="assets/section-about.svg" alt="About" width="100%"></h2>
 
-I build LLM agents with safety guardrails, deep-learning systems, and models that run on edge hardware such as the Jetson. I am a BS-MS student at IISER Bhopal, and I am looking for full-time Machine Learning Engineer roles in India.
+I build LLM agents with safety guardrails, deep-learning systems, and robotics software that runs on real hardware: Jetson edge devices and drones. I have worked in robotics for two years at the MOON Lab, IISER Bhopal (GNSS-denied navigation, state estimation, adaptive control) and interned in AI and robotics at TCS Research (manipulation). I am a BS-MS student at IISER Bhopal, looking for full-time Machine Learning Engineer roles in India.
 
 **Role:** Machine Learning Engineer · **Education:** IISER Bhopal, BS-MS, Major in Computer Science (EECS), Minor in Data Science, exp. May 2027 · **Looking for:** full-time ML Engineer roles in India · **Based in:** Bhopal, India
 
@@ -37,6 +37,10 @@ I build LLM agents with safety guardrails, deep-learning systems, and models tha
 <td width="110" valign="top"><img src="assets/project-6.svg" alt="Emblem: top-down quadcopter" width="96"></td>
 <td valign="top"><b>Applied Robotics: NIDAR 2.0</b> (team lead, 6 members). Building an 8-drone swarm that autonomously searches a disaster zone and delivers rescue packets over a custom communication network. That is the planned target; in simulation, 2 recon and 4 delivery drones covered 10 hectares in under 5 min. I benchmarked 11 public detectors on VisDrone (LEAF-YOLO-s, 4.28M params, beats YOLOv8x, 68.16M) and navigate without GNSS using MSCKF + EKF visual-inertial estimation on a Jetson Orin Nano 8 GB, flight-validated at 50 to 80 m.<br><code>mAP@0.5 0.487 vs 0.438 (LEAF-YOLO-s vs YOLOv8x)</code> <code>4.5 to 4.6 FPS on Jetson Nano, TensorRT FP16</code> <code>OpenVINS update 7.5 -> 3.7 to 4.0 ms</code> <code>mean ATE ratio 0.98</code><br><a href="https://github.com/PranjalUpadhyay7/Detection_algo_benchmark">Detection_algo_benchmark</a> (detector benchmark; the swarm and VIO code are not public)</td>
 </tr>
+<tr>
+<td width="110" valign="top"><img src="assets/project-7.svg" alt="Emblem: camera pose along a trajectory" width="96"></td>
+<td valign="top"><b>OpenVINS in Python.</b> My Python implementation of the OpenVINS visual-inertial estimator, written with data-oriented design. This is separate from the C++ speed-up above. Public release soon.<br>Python</td>
+</tr>
 </table>
 
 **Measurement notes.**
@@ -49,12 +53,13 @@ I build LLM agents with safety guardrails, deep-learning systems, and models tha
 
 **TCS Research & Innovation, Research Intern, AI and Robotics (May to Jul 2025).** A PyBullet simulation platform (4 warehouse scenarios) to train and validate an in-house soft gripper across 20 object categories; an RGB-D pipeline predicting 6-DoF grasp poses in clutter; a PPO grasping policy trained over a 48-hour simulation run, with 15 to 30 s per-object pick cycles. Simulation only.
 
-**MOON Lab, IISER Bhopal, undergraduate researcher.** Perception, state estimation and adaptive control, advised by Dr. P. B. Sujit.
+**MOON Lab, IISER Bhopal, undergraduate researcher (two years).** Perception, state estimation, adaptive control and GNSS-denied navigation, advised by Dr. P. B. Sujit. I have deployed algorithms on Jetson edge devices and drones, written a Python implementation of OpenVINS, and work on the drone hardware side as well as the software.
 
 <h2 id="skills"><img src="assets/section-skills.svg" alt="Skills" width="100%"></h2>
 
 **Languages & Data:** Python, C++, TypeScript, Rust (Tauri)<br>
 **ML & Deep Learning:** PyTorch, TabM, LSTM, transformers, continual learning, federated learning (Flower), reinforcement learning (PPO, PyBullet), object detection (YOLO family, LEAF-YOLO), visual-inertial estimation (MSCKF, EKF)<br>
+**Robotics:** visual-inertial odometry (OpenVINS, MSCKF, EKF), GNSS-denied navigation, grasp-pose prediction and RL in simulation (PyBullet), adaptive control, ROS 2, drone and edge-hardware integration<br>
 **GenAI & NLP:** LangGraph, hybrid RAG (BM25, embeddings, RRF), LLM agent guardrails, AWS Bedrock (Amazon Nova), Whisper<br>
 **Deployment:** FastAPI, TensorRT FP16, Jetson Nano and Orin Nano, ArduPilot/pymavlink, Chrome extensions, pytest and mutation testing
 
