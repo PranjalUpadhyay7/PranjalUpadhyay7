@@ -182,7 +182,7 @@ def chips(items, x0, y0, x_max, size=16, color=None, row_h=38):
 
 def stats():
     tiles = [
-        ("0", "unsafe writes on the", "30-task agent benchmark"),
+        ("0", "unsafe writes in the", "60-task agent benchmark"),
         ("2x", "faster VIO update at", "accuracy parity"),
         ("~340x", "lower control-loop", "latency, liquid NN"),
         ("-3.9 pp", "forgetting from my", "DyTox extension"),
@@ -194,19 +194,19 @@ def stats():
         body += (
             f'<rect x="{x}" y="2" width="{w}" height="116" rx="12" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
             f'<rect x="{x}" y="2" width="{w}" height="5" rx="2" fill="{c}"/>'
-            f'<text x="{x + w / 2}" y="60" text-anchor="middle" font-family="{MONO}" font-size="{40 if len(n) < 6 else 34}" font-weight="700" fill="{c}">{escape(n)}</text>'
-            f'<text x="{x + w / 2}" y="87" text-anchor="middle" font-family="{SANS}" font-size="13.5" fill="{P["muted"]}">{escape(l1)}</text>'
-            f'<text x="{x + w / 2}" y="105" text-anchor="middle" font-family="{SANS}" font-size="13.5" fill="{P["muted"]}">{escape(l2)}</text>'
+            f'<text x="{x + w / 2}" y="60" text-anchor="middle" font-family="{MONO}" font-size="{40 if len(n) < 6 else 30}" font-weight="700" fill="{c}">{escape(n)}</text>'
+            f'<text x="{x + w / 2}" y="87" text-anchor="middle" font-family="{SANS}" font-size="12.5" fill="{P["muted"]}">{escape(l1)}</text>'
+            f'<text x="{x + w / 2}" y="105" text-anchor="middle" font-family="{SANS}" font-size="12.5" fill="{P["muted"]}">{escape(l2)}</text>'
         )
     write("stats.svg", svg(720, 120, "Key results",
-          "0 unsafe writes on the 30-task AP-Copilot benchmark; 2x faster OpenVINS update at accuracy parity; about 340x lower control-loop latency for the liquid neural network controller; 3.9 percentage points less forgetting from the DyTox Task-Aware Encoder.", body))
+          "0 unsafe writes on the 60-task AP-Copilot benchmark; 2x faster OpenVINS update at accuracy parity; about 340x lower control-loop latency for the liquid neural network controller; 3.9 percentage points less forgetting from the DyTox Task-Aware Encoder.", body))
 
 
 CARDS = [
-    ("ap-copilot", "project-1.svg", "AP-Copilot", "PUBLIC RELEASE SOON",
+    ("ap-copilot", "project-1.svg", "AP-Copilot", "PUBLIC REPO",
      "LLM agent that configures ArduPilot, guarded by validators",
-     ["20/30 → 30/30 tasks", "0 unsafe writes", "219/219 mutants killed"],
-     "AP-Copilot, public release soon. A safety-critical LLM agent that configures ArduPilot/Pixhawk parameters from plain-language requests; deterministic guardrails and a human-approval gate block unsafe changes. Hybrid RAG with BM25, embeddings and RRF. 20/30 to 30/30 tasks, 0 unsafe writes, 219/219 mutants killed."),
+     ["31/60 → 59/60 tasks", "0 unsafe writes", "480 tests", "219/219 mutants killed"],
+     "AP-Copilot, public repo. A safety-critical LLM agent that configures ArduPilot/Pixhawk parameters from plain-language requests; the model has no write tool, and deterministic validation plus a human-approval gate decide. Hybrid RAG with BM25, embeddings and RRF. On a 60-task benchmark the full system passed 59/60 for gpt-oss-20b versus 31/60 with retrieval and validation removed; no model produced an unsafe write on the full system. 480 tests, 219/219 mutants killed in the validation layer."),
     ("federated", "project-2.svg", "Federated Mood Prediction", "PUBLIC REPO",
      "Federated mood screening from phone signals, 8 countries",
      ["TabM 69.95%", "LSTM 68.28%", "within 2% of centralized"],
@@ -227,10 +227,10 @@ CARDS = [
      "8-drone disaster-search swarm. Team lead, 6 members.",
      ["VIO 7.5 → 3.7–4.0 ms", "4.5 FPS YOLO on Jetson Nano", "GNSS-denied, 50–80 m flights"],
      "NIDAR 2.0, team lead of 6. Building an 8-drone disaster-search swarm; validated in simulation with 2 recon and 4 delivery drones over 10 hectares; the full mission is the planned target. OpenVINS backend update 7.5 ms to 3.7 to 4.0 ms; LEAF-YOLO-s at 4.5 to 4.6 FPS on a Jetson Nano; GNSS-denied navigation flight-validated at 50 to 80 m."),
-    ("openvins-python", "project-7.svg", "OpenVINS in Python", "PUBLIC RELEASE SOON",
-     "Data-oriented visual-inertial odometry in Python",
-     ["Python", "data-oriented design"],
-     "My Python implementation of the OpenVINS visual-inertial estimator, written with data-oriented design. Public release soon."),
+    ("openvins-python", "project-7.svg", "OpenVINS in Python", "PUBLIC REPOS · BS THESIS",
+     "Python MSCKF port plus a hovering-aware extension",
+     ["Python port of OpenVINS MSCKF", "hovering-aware FIFO/LIFO mode", "BS thesis, Apr 2026"],
+     "A Python port of the OpenVINS MSCKF visual-inertial estimator, plus a hovering-aware extension that implements the motion-classification algorithm of Kottas, Wu and Roumeliotis (IROS 2014), for which no reference code was published. It is the implementation behind my BS thesis at IISER Bhopal (April 2026). Validated on a Jetson Orin Nano UAV against the KAIST VIO benchmark and a custom hovering flight dataset."),
     ("droid-slam", "project-8.svg", "DROID-SLAM on OAK-D", "PUBLIC REPO",
      "Real-time visual SLAM from a live OAK-D camera",
      ["fork of DROID-SLAM", "live OAK-D demo"],
