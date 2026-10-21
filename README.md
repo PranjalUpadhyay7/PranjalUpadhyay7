@@ -22,6 +22,26 @@ I build LLM agents with safety guardrails, deep-learning systems, and robotics t
 <p align="center">Code: <a href="https://github.com/PranjalUpadhyay7/AP-Copilot">AP-Copilot</a> · <a href="https://github.com/PranjalUpadhyay7/openvins-python-msckf">openvins-python-msckf</a> · <a href="https://github.com/PranjalUpadhyay7/openvins-python-hovering-aware-msckf">openvins-python-hovering-aware-msckf</a> (thesis, GPL-3.0, derived from <a href="https://github.com/rpng/open_vins">OpenVINS</a>) · <a href="https://github.com/PranjalUpadhyay7/Federated_Learning">Federated_Learning</a> · <a href="https://github.com/PranjalUpadhyay7/dytox_modification">dytox_modification</a> (built on <a href="https://github.com/arthurdouillard/dytox">DyTox</a> by Douillard et al.) · <a href="https://github.com/PranjalUpadhyay7/Detection_algo_benchmark">Detection_algo_benchmark</a> · <a href="https://github.com/PranjalUpadhyay7/DROID-SLAM-on-OAKD_pro-realtime">DROID-SLAM-on-OAKD_pro-realtime</a> · <a href="https://devpost.com/software/novalearn-ty2b3k">NovaLearn on DevPost</a></p>
 
 <details>
+<summary><b>AP-Copilot: how a parameter change gets written</b></summary>
+
+The model can read, search and propose. It has no write tool. Every stage after the proposal is ordinary deterministic code.
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'primaryColor':'#111832','primaryTextColor':'#E6EDF7','primaryBorderColor':'#2DD4BF','lineColor':'#8FA0C0'}}}%%
+flowchart TD
+    U([You ask in plain language]) --> L[LLM agent<br/>read, search, propose]
+    L -->|proposal| V[Validation Layer<br/>exists, type, range, enum]
+    V -->|rejected| L
+    V -->|accepted| H[/Human approval<br/>critical: cooldown + type the name/]
+    H -->|confirmed| W[Write-time checks<br/>fresh values, disarmed, rate limit]
+    W -->|pass| P[Write + read-back ack]
+    P --> A[(Hash-chained audit log)]
+    H -.->|rejected| L
+    W -.->|blocked| L
+```
+</details>
+
+<details>
 <summary><b>How these numbers were measured</b></summary>
 
 - AP-Copilot: my own 60-task benchmark, machine-checked against what a fake vehicle received (no LLM judge). "Unsafe write" means a value the project's own validator would reject. 31/60 to 59/60 is one model (gpt-oss-20b), one repeat, with safety layers removed cumulatively; the 0 unsafe writes covers five models at 3 repeats on the full system. The 219 mutants cover the validation layer only. Free-tier models and author-written tasks: see the repo's caveats.

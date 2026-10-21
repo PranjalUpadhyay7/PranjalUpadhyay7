@@ -10,3 +10,4 @@
 | T-6 | Phase 2 READMEs | feature | P2 | repos locally | Todo | repos not on this machine |
 - T-7 (2026-10-20): remove How I work, link Detection_algo_benchmark: Done
 - T-8 (2026-10-20): visual redesign to cards, stats strip and chip map: Done
+- T-9 (2026-10-21): Mermaid trust-path diagram: Done. Pending owner choice: suggestions 1,4,5,6,12.
