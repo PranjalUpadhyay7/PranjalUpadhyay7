@@ -345,34 +345,82 @@ def achievements():
            ".march{animation:march 1.8s linear infinite}@keyframes march{to{stroke-dashoffset:-22}}")
     write("achievements.svg", svg(720, 3 * h + 2 * g, "Achievements", alt, body, css=css))
 
-OPTIONS = [
-    "Why did your DyTox extension make results worse?",
-    "How did an OpenVINS update get 2x faster?",
-    "Why does AP-Copilot's model have no write tool?",
-    "What does a hovering drone do to a VIO filter?",
-    "How do you run YOLO at 4.5 FPS on a Jetson Nano?",
+JOURNEY = [
+    ("LAUNCH · IISER BHOPAL", "BS-MS, Computer Science + Data Science", "graduating May 2027"),
+    ("FIRST REPS", "Learned to think fast in contests", "645 problems · CodeChef max 1644"),
+    ("FIRST RESEARCH", "Made a transformer forget less", "forgetting 18.7% → 14.8%"),
+    ("TCS RESEARCH · 2025", "Taught a robot gripper to pick, in simulation", "PPO policy · 20 object categories"),
+    ("MOON LAB", "Flew drones where GPS can't reach", "VIO update 2x faster · flights at 50–80 m"),
+    ("THESIS · APR 2026", "Rebuilt OpenVINS in Python, made it hover-aware", "both repos open source"),
+    ("AP-COPILOT · 2026", "Built an LLM that can't write to the drone", "60 tasks · 0 unsafe writes"),
+    ("NEXT WAYPOINT", "Your team.", "full-time ML Engineer · India"),
 ]
 
 
-def dialogue():
-    n, rh = len(OPTIONS), 40
-    h = 54 + n * rh + 10
-    rows = "".join(
-        f'<text x="64" y="{54 + i * rh + 26}" font-family="{SANS}" font-size="17" fill="{P["text"]}">{escape(t)}</text>'
-        for i, t in enumerate(OPTIONS)
-    )
-    steps = "".join(
-        f"{i * 100 // n}%,{(i + 1) * 100 // n - 1}%{{transform:translateY({i * rh}px)}}" for i in range(n)
-    )
-    css = f".sel{{animation:sel {n * 2.2}s infinite}}@keyframes sel{{{steps}100%{{transform:translateY(0)}}}}"
-    body = (
-        f'<rect x="2" y="2" width="716" height="{h - 4}" rx="14" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
-        f'<text x="24" y="34" font-family="{SANS}" font-size="12" letter-spacing="3" font-weight="700" fill="{P["amber"]}">PICK A DIALOGUE OPTION</text>'
-        f'<g class="sel"><rect x="14" y="54" width="692" height="{rh - 4}" rx="8" fill="{P["base"]}" stroke="{P["teal"]}" stroke-width="1.5"/>'
-        f'<path d="M30 {54 + 11} L44 {54 + 18} L30 {54 + 25} Z" fill="{P["teal"]}"/></g>' + rows
-    )
-    alt = "Dialogue options, ask me: " + " ".join(OPTIONS)
-    write("dialogue.svg", svg(720, h, "Dialogue options", alt, body, css=css))
+def journey():
+    """A quadcopter flies a mission route and lights one waypoint per chapter.
+
+    Straight legs + linear keyframes keep the drone, the drawn trail and the
+    captions in sync. Without animation (reduced motion) everything shows.
+    """
+    T, start, leg, dwell, fade = 24.0, 0.6, 1.2, 1.4, 23.0
+    top, row = 104, 82
+    pts = [(52 if k % 2 == 0 else 92, top + k * row) for k in range(len(JOURNEY))]
+    seg = [math.dist(pts[k], pts[k + 1]) for k in range(len(pts) - 1)]
+    cum = [0.0]
+    for s_ in seg:
+        cum.append(cum[-1] + s_)
+    frac = [c / cum[-1] for c in cum]
+    arrive = [start + k * (leg + dwell) for k in range(len(pts))]
+    pc = lambda t: f"{t / T * 100:.2f}%"
+
+    drone_kf = [f"0%{{transform:translate({pts[0][0]}px,{pts[0][1]}px);opacity:0}}"]
+    trail_kf = ["0%{stroke-dashoffset:1}"]
+    for k, (x, y) in enumerate(pts):
+        a = arrive[k]
+        d = min(a + dwell, fade) if k < len(pts) - 1 else fade
+        drone_kf += [f"{pc(a)}{{transform:translate({x}px,{y}px);opacity:1}}", f"{pc(d)}{{transform:translate({x}px,{y}px);opacity:1}}"]
+        trail_kf += [f"{pc(a)}{{stroke-dashoffset:{1 - frac[k]:.4f}}}", f"{pc(d)}{{stroke-dashoffset:{1 - frac[k]:.4f}}}"]
+    drone_kf.append(f"100%{{transform:translate({pts[-1][0]}px,{pts[-1][1]}px);opacity:0}}")
+    trail_kf.append(f"{pc(fade)}{{stroke-dashoffset:0;opacity:1}}")
+    trail_kf.append("100%{stroke-dashoffset:0;opacity:0}")
+
+    css = (f".drone{{transform:translate({pts[-1][0]}px,{pts[-1][1]}px);animation:fly {T}s linear infinite}}"
+           f"@keyframes fly{{{''.join(drone_kf)}}}"
+           f".trail{{stroke-dasharray:1;animation:trail {T}s linear infinite}}@keyframes trail{{{''.join(trail_kf)}}}"
+           ".pulse{transform-box:fill-box;transform-origin:center;animation:pulse 1.6s ease-out infinite}"
+           "@keyframes pulse{from{transform:scale(1);opacity:.9}to{transform:scale(2.6);opacity:0}}"
+           ".spin{animation:spin .25s linear infinite}@keyframes spin{50%{opacity:.35}}")
+
+    body = (f'<rect x="2" y="2" width="716" height="{top + (len(pts) - 1) * row + 54}" rx="14" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
+            f'<text x="28" y="44" font-family="{SANS}" font-size="13" letter-spacing="4" font-weight="700" fill="{P["amber"]}">FLIGHT LOG</text>'
+            f'<text x="692" y="44" text-anchor="end" font-family="{MONO}" font-size="13" fill="{P["muted"]}">{len(pts)} WAYPOINTS · 1 PILOT</text>'
+            f'<line x1="28" y1="60" x2="692" y2="60" stroke="{P["line"]}" stroke-width="1.5"/>')
+    route = " ".join(f"{x},{y}" for x, y in pts)
+    body += (f'<polyline points="{route}" fill="none" stroke="{P["line"]}" stroke-width="2.5" stroke-dasharray="4 7"/>'
+             f'<polyline class="trail" pathLength="1" points="{route}" fill="none" stroke="{P["teal"]}" stroke-width="3" stroke-linejoin="round"/>')
+    for k, ((x, y), (tag, title, metric)) in enumerate(zip(pts, JOURNEY)):
+        last = k == len(pts) - 1
+        c = P["amber"] if last else P["teal"]
+        a = arrive[k]
+        css += (f".w{k}{{animation:w{k} {T}s linear infinite}}"
+                f"@keyframes w{k}{{0%,{pc(max(a - 0.05, 0))}{{opacity:0;transform:translateX(-10px)}}"
+                f"{pc(a + 0.45)},{pc(fade)}{{opacity:1;transform:translateX(0)}}100%{{opacity:0}}}}")
+        body += f'<circle cx="{x}" cy="{y}" r="9" fill="{P["base"]}" stroke="{P["line"]}" stroke-width="2.5"/>'
+        body += f'<g class="w{k}"><circle cx="{x}" cy="{y}" r="9" fill="{c}"/>'
+        if last:
+            body += f'<circle class="pulse" cx="{x}" cy="{y}" r="9" fill="none" stroke="{c}" stroke-width="2.5"/>'
+        body += (f'<text x="136" y="{y - 16}" font-family="{SANS}" font-size="12" letter-spacing="2.5" font-weight="700" fill="{P["amber"]}">{k + 1:02d} · {escape(tag)}</text>'
+                 f'<text x="136" y="{y + 9}" font-family="{SANS}" font-size="21" font-weight="700" fill="{P["text"]}">{escape(title)}</text>'
+                 f'<text x="136" y="{y + 31}" font-family="{MONO}" font-size="15" fill="{c}">{escape(metric)}</text></g>')
+    rotors = "".join(f'<circle class="spin" cx="{sx * 9}" cy="{sy * 9}" r="6" fill="none" stroke="{P["text"]}" stroke-width="2"/>'
+                     for sx in (-1, 1) for sy in (-1, 1))
+    body += (f'<g class="drone"><path d="M-9 -9 L9 9 M9 -9 L-9 9" stroke="{P["muted"]}" stroke-width="3" stroke-linecap="round"/>'
+             f'{rotors}<rect x="-5" y="-5" width="10" height="10" rx="2" fill="{P["amber"]}"/></g>')
+    h = top + (len(pts) - 1) * row + 58
+    alt = "Flight log of my journey, animated as a drone flying a mission route. " + " ".join(
+        f"{k + 1}. {t.title()}: {ti} ({m})." for k, (t, ti, m) in enumerate(JOURNEY))
+    write("journey.svg", svg(720, h, "Flight log", alt, body, css=css))
 
 
 def hud():
@@ -452,7 +500,7 @@ if __name__ == "__main__":
     skills()
     achievements()
     coding()
-    dialogue()
+    journey()
     hud()
     footer()
     print("wrote", len(os.listdir(OUT)), "files to", os.path.normpath(OUT))

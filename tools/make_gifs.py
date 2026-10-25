@@ -44,5 +44,3 @@ if __name__ == "__main__":
     # banner: trace draws over 3.2 s, then holds on the finished frame
     ts = [round(i * 0.2, 1) for i in range(17)] + [3.4]
     gif("banner", 1200, 340, ts, [20] * 16 + [20, 300], 900)
-    # dialogue menu: cursor steps through the options every 2.2 s
-    gif("dialogue", 720, 264, [round(i * 2.2 + 0.1, 1) for i in range(5)], [220] * 5, 720)

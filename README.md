@@ -4,13 +4,11 @@
 
 <p align="center"><a href="https://www.linkedin.com/in/pranjal-upadhyay7">LinkedIn</a> · <a href="#quests">Quest log</a> · <a href="#achievements">Achievements</a> · <a href="#start">Press start</a></p>
 
+<p align="center"><img src="assets/journey.svg" alt="Flight log of my journey, animated as a drone flying a mission route. 1. Launch · Iiser Bhopal: BS-MS, Computer Science + Data Science (graduating May 2027). 2. First Reps: Learned to think fast in contests (645 problems · CodeChef max 1644). 3. First Research: Made a transformer forget less (forgetting 18.7% → 14.8%). 4. Tcs Research · 2025: Taught a robot gripper to pick, in simulation (PPO policy · 20 object categories). 5. Moon Lab: Flew drones where GPS can't reach (VIO update 2x faster · flights at 50–80 m). 6. Thesis · Apr 2026: Rebuilt OpenVINS in Python, made it hover-aware (both repos open source). 7. Ap-Copilot · 2026: Built an LLM that can't write to the drone (60 tasks · 0 unsafe writes). 8. Next Waypoint: Your team. (full-time ML Engineer · India)." width="100%"></p>
+
 <p align="center"><img src="assets/hud.svg" alt="Player 1: Pranjal. Class: ML engineer. Guild: IISER Bhopal. Quests: 8. Achievements unlocked: 6 of 9. Status: open to work." width="100%"></p>
 
 <p align="center"><img src="assets/stats.svg" alt="0 unsafe writes on the 60-task AP-Copilot benchmark; 2x faster OpenVINS update at accuracy parity; about 340x lower control-loop latency for the liquid neural network controller; 3.9 percentage points less forgetting from the DyTox Task-Aware Encoder." width="100%"></p>
-
-### An LLM near a flight controller? It proposes. A human approves. **It never writes.**
-
-<p align="center"><img src="assets/dialogue.gif" alt="Dialogue options, ask me: Why did your DyTox extension make results worse? How did an OpenVINS update get 2x faster? Why does AP-Copilot's model have no write tool? What does a hovering drone do to a VIO filter? How do you run YOLO at 4.5 FPS on a Jetson Nano?" width="100%"></p>
 
 <h2 id="quests"><img src="assets/section-quest-log.svg" alt="Quest log" width="100%"></h2>
 
