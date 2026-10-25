@@ -97,15 +97,15 @@ SECTIONS = ["QUEST LOG", "ACHIEVEMENTS", "TRAINING GROUNDS", "INVENTORY", "CONTA
 
 def section(i, label):
     body = (
-        f'<rect width="720" height="44" fill="{P["panel"]}"/>'
-        f'<rect width="6" height="44" fill="{P["teal"]}"/>'
-        f'<text x="24" y="29" font-family="{SANS}" font-size="19" font-weight="700" letter-spacing="5" fill="{P["text"]}">{label}</text>'
-        f'<text x="696" y="28" text-anchor="end" font-family="{MONO}" font-size="15" fill="{P["amber"]}">{i:02d}</text>'
+        f'<rect width="720" height="36" fill="{P["panel"]}"/>'
+        f'<rect width="6" height="36" fill="{P["teal"]}"/>'
+        f'<text x="24" y="24.5" font-family="{SANS}" font-size="17" font-weight="700" letter-spacing="5" fill="{P["text"]}">{label}</text>'
+        f'<text x="696" y="23.5" text-anchor="end" font-family="{MONO}" font-size="14" fill="{P["amber"]}">{i:02d}</text>'
     )
     slug = label.lower().replace(" ", "-")
     write(
         f"section-{slug}.svg",
-        svg(720, 44, f"Section: {label.title()}", f"Header bar for the {label.title()} section.", body),
+        svg(720, 36, f"Section: {label.title()}", f"Header bar for the {label.title()} section.", body),
     )
 
 
@@ -188,30 +188,6 @@ def chips(items, x0, y0, x_max, size=16, color=None, row_h=38, ch=30):
     return "".join(out), y + ch
 
 
-def stats():
-    tiles = [
-        ("0", "unsafe writes in the", "60-task agent benchmark"),
-        ("2x", "faster VIO update at", "accuracy parity"),
-        ("~340x", "lower control-loop", "latency, liquid NN"),
-        ("-3.9 pp", "forgetting from my", "DyTox extension"),
-    ]
-    body, w = "", 167
-    for i, (n, l1, l2) in enumerate(tiles):
-        x = i * (w + 16) + 2
-        c = P["teal"] if i % 2 == 0 else P["amber"]
-        body += (
-            f'<g class="t" style="animation-delay:{i * 0.25:.2f}s">'
-            f'<rect x="{x}" y="2" width="{w}" height="116" rx="12" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
-            f'<rect x="{x}" y="2" width="{w}" height="5" rx="2" fill="{c}"/>'
-            f'<text x="{x + w / 2}" y="60" text-anchor="middle" font-family="{MONO}" font-size="{40 if len(n) < 6 else 30}" font-weight="700" fill="{c}">{escape(n)}</text>'
-            f'<text x="{x + w / 2}" y="87" text-anchor="middle" font-family="{SANS}" font-size="12.5" fill="{P["muted"]}">{escape(l1)}</text>'
-            f'<text x="{x + w / 2}" y="105" text-anchor="middle" font-family="{SANS}" font-size="12.5" fill="{P["muted"]}">{escape(l2)}</text></g>'
-        )
-    write("stats.svg", svg(720, 120, "Key results",
-          "0 unsafe writes on the 60-task AP-Copilot benchmark; 2x faster OpenVINS update at accuracy parity; about 340x lower control-loop latency for the liquid neural network controller; 3.9 percentage points less forgetting from the DyTox Task-Aware Encoder.", body,
-          css=".t{animation:rise .7s ease-out both}@keyframes rise{from{opacity:0;transform:translateY(12px)}}"))
-
-
 CARDS = [
     ("ap-copilot", "project-1.svg", "AP-Copilot", "QUEST COMPLETE · PUBLIC REPO",
      "The LLM can propose. It can never write.",
@@ -219,7 +195,7 @@ CARDS = [
      "AP-Copilot, public repo. A safety-critical LLM agent that configures ArduPilot/Pixhawk parameters from plain-language requests; the model has no write tool, and deterministic validation plus a human-approval gate decide. Hybrid RAG with BM25, embeddings and RRF. On a 60-task benchmark the full system passed 59/60 for gpt-oss-20b versus 31/60 with retrieval and validation removed; no model produced an unsafe write on the full system. 480 tests, 219/219 mutants killed in the validation layer."),
     ("federated", "project-2.svg", "Federated Mood Prediction", "QUEST COMPLETE · PUBLIC REPO",
      "Mood screening where every participant is a client",
-     ["TabM 69.95%", "LSTM 68.28%", "within 2% of centralized"],
+     ["TabM 69.95%", "within 2% of centralized", "LSTM 68.28%"],
      "Federated Mood Prediction for Early Depression Screening. Flower pipeline predicting 5-class mood from smartphone behavioural signals, DiversityOne dataset, non-IID clients. TabM 69.95%, LSTM 68.28%, within 2% of centralized."),
     ("novalearn", "project-3.svg", "NovaLearn", "SUBMITTED · AMAZON NOVA HACKATHON 2025",
      "A study session in, a 24-second animation out",
@@ -249,16 +225,20 @@ CARDS = [
 
 
 def card(slug, emb, title, status, tagline, items, alt):
-    chip_svg, bottom = chips(items, 112, 76, 708, 12.5, row_h=30, ch=24)
-    h = bottom + 10
+    """One slim quest row: emblem, status/title/tagline on the left, two metric chips stacked right."""
+    h = 58
     body = (
-        f'<rect x="2" y="2" width="716" height="{h - 4}" rx="12" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
-        f'<g transform="translate(16,{(h - 80) / 2:.0f}) scale(0.5)"><g class="float" style="animation-delay:{(len(slug) % 5) * 0.4:.1f}s">{EMBLEMS[emb]}</g></g>'
-        f'<text class="{"blink" if status.startswith(("IN PROGRESS", "BOSS")) else ""}" x="112" y="22" font-family="{SANS}" font-size="11" letter-spacing="2.2" fill="{P["amber"]}" font-weight="600">{escape(status)}</text>'
-        f'<text x="112" y="46" font-family="{SANS}" font-size="21" font-weight="700" fill="{P["text"]}">{escape(title)}</text>'
-        f'<text x="112" y="66" font-family="{SANS}" font-size="14" fill="{P["muted"]}">{escape(tagline)}</text>'
-        + chip_svg
+        f'<rect x="2" y="2" width="716" height="{h - 4}" rx="10" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
+        f'<g transform="translate(10,2) scale(0.34)"><g class="float" style="animation-delay:{(len(slug) % 5) * 0.4:.1f}s">{EMBLEMS[emb]}</g></g>'
+        f'<text class="{"blink" if status.startswith(("IN PROGRESS", "BOSS")) else ""}" x="80" y="17" font-family="{SANS}" font-size="9.5" letter-spacing="1.8" fill="{P["amber"]}" font-weight="600">{escape(status)}</text>'
+        f'<text x="80" y="35" font-family="{SANS}" font-size="17" font-weight="700" fill="{P["text"]}">{escape(title)}</text>'
+        f'<text x="80" y="50" font-family="{SANS}" font-size="12" fill="{P["muted"]}">{escape(tagline)}</text>'
     )
+    for n, t in enumerate(items[:2]):
+        w = len(t) * 11.5 * 0.6 + 20
+        y = 5 + n * 25
+        body += (f'<rect x="{708 - w:.0f}" y="{y}" width="{w:.0f}" height="22" rx="11" fill="{P["base"]}" stroke="{P["line"]}" stroke-width="1.5"/>'
+                 f'<text x="{708 - w + 10:.0f}" y="{y + 15}" font-family="{MONO}" font-size="11.5" fill="{P["text"]}">{escape(t)}</text>')
     css = ".float{animation:float 3.4s ease-in-out infinite}@keyframes float{50%{transform:translateY(-6px)}}.blink{animation:blink 1.6s ease-in-out infinite}@keyframes blink{50%{opacity:.35}}"
     write(f"card-{slug}.svg", svg(720, h, title, alt, body, css=css))
 
@@ -274,14 +254,14 @@ def experience():
     ]
     for slug, org, role, tag, line, c, alt in cards:
         body = (
-            f'<rect x="2" y="2" width="716" height="106" rx="14" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
-            f'<rect x="2" y="2" width="8" height="106" rx="3" fill="{c}"/>'
-            f'<text x="30" y="40" font-family="{SANS}" font-size="24" font-weight="700" fill="{P["text"]}">{escape(org)}</text>'
-            f'<text x="30" y="66" font-family="{SANS}" font-size="17" fill="{P["muted"]}">{escape(role)}</text>'
-            f'<text x="30" y="92" font-family="{SANS}" font-size="15" fill="{P["muted"]}" opacity="0.85">{escape(line)}</text>'
-            f'<text x="696" y="34" text-anchor="end" font-family="{SANS}" font-size="12" letter-spacing="2.5" fill="{P["amber"]}" font-weight="600">{escape(tag)}</text>'
+            f'<rect x="2" y="2" width="716" height="76" rx="12" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
+            f'<rect x="2" y="2" width="7" height="76" rx="3" fill="{c}"/>'
+            f'<text x="26" y="30" font-family="{SANS}" font-size="20" font-weight="700" fill="{P["text"]}">{escape(org)}</text>'
+            f'<text x="26" y="51" font-family="{SANS}" font-size="14.5" fill="{P["muted"]}">{escape(role)}</text>'
+            f'<text x="26" y="69" font-family="{SANS}" font-size="12.5" fill="{P["muted"]}" opacity="0.85">{escape(line)}</text>'
+            f'<text x="696" y="28" text-anchor="end" font-family="{SANS}" font-size="12" letter-spacing="2.5" fill="{P["amber"]}" font-weight="600">{escape(tag)}</text>'
         )
-        write(f"{slug}.svg", svg(720, 110, f"{org}, {role}", alt, body))
+        write(f"{slug}.svg", svg(720, 80, f"{org}, {role}", alt, body))
 
 
 SKILLS = [
@@ -294,12 +274,12 @@ SKILLS = [
 
 
 def skills():
-    body, y = "", 8
+    body, y = "", 4
     for label, color, items in SKILLS:
-        body += f'<text x="4" y="{y + 12}" font-family="{SANS}" font-size="12" letter-spacing="3" font-weight="700" fill="{color}">{escape(label)}</text>'
-        c, bottom = chips(items, 2, y + 22, 716, 15, color)
+        body += f'<text x="4" y="{y + 18}" font-family="{SANS}" font-size="10.5" letter-spacing="2" font-weight="700" fill="{color}">{escape(label)}</text>'
+        c, bottom = chips(items, 158, y, 716, 12.5, color, row_h=29, ch=24)
         body += c
-        y = bottom + 20
+        y = bottom + 10
     alt = "Skills. " + " ".join(f"{l.title()}: {', '.join(i)}." for l, _, i in SKILLS)
     write("skills.svg", svg(720, y, "Skills", alt, body))
 
@@ -318,7 +298,7 @@ ACHIEVEMENTS = [
 
 
 def achievements():
-    w, h, g = 232, 84, 12
+    w, h, g = 232, 58, 8
     body = ""
     for i, (on, title, sub) in enumerate(ACHIEVEMENTS):
         x, y = (i % 3) * (w + g), (i // 3) * (h + g)
@@ -326,16 +306,16 @@ def achievements():
         dash = "" if on else ' stroke-dasharray="6 5"'
         d = f'style="animation-delay:{i * 0.3:.1f}s"'
         glyph = (
-            f'<g class="glow" {d}><circle cx="{x + 30}" cy="{y + 42}" r="16" {stroke(c, 3)}/><path d="M{x + 22} {y + 42} L{x + 28} {y + 48} L{x + 39} {y + 36}" {stroke(c, 3)}/></g>'
+            f'<g class="glow" {d}><circle cx="{x + 28}" cy="{y + 29}" r="14" {stroke(c, 3)}/><path d="M{x + 21} {y + 29} L{x + 26} {y + 34} L{x + 35} {y + 24}" {stroke(c, 3)}/></g>'
             if on else
-            f'<g class="lock" {d}><rect x="{x + 20}" y="{y + 42}" width="20" height="15" rx="3" {stroke(c, 3)}/><path d="M{x + 24} {y + 42} V{y + 36} a6 6 0 0 1 12 0 V{y + 42}" {stroke(c, 3)}/></g>'
+            f'<g class="lock" {d}><rect x="{x + 18}" y="{y + 28}" width="20" height="15" rx="3" {stroke(c, 3)}/><path d="M{x + 22} {y + 28} V{y + 22} a6 6 0 0 1 12 0 V{y + 28}" {stroke(c, 3)}/></g>'
         )
         body += (
             f'<rect x="{x + 1}" y="{y + 1}" width="{w - 2}" height="{h - 2}" rx="12" fill="{P["panel"]}" stroke="{P["line"] if on else c}" stroke-width="2"{dash}{"" if on else ' class="march"'}/>'
             + glyph
-            + f'<text x="{x + 58}" y="{y + 38}" font-family="{SANS}" font-size="13.5" font-weight="700" letter-spacing="0.5" fill="{P["text"] if on else P["muted"]}">{escape(title)}</text>'
-            + f'<text x="{x + 58}" y="{y + 58}" font-family="{SANS}" font-size="12" fill="{P["muted"]}">{escape(sub)}</text>'
-            + f'<text x="{x + w - 12}" y="{y + 18}" text-anchor="end" font-family="{SANS}" font-size="9.5" letter-spacing="1.5" fill="{c}">{"UNLOCKED" if on else "LOCKED"}</text>'
+            + f'<text x="{x + 54}" y="{y + 32}" font-family="{SANS}" font-size="13" font-weight="700" letter-spacing="0.5" fill="{P["text"] if on else P["muted"]}">{escape(title)}</text>'
+            + f'<text x="{x + 54}" y="{y + 48}" font-family="{SANS}" font-size="11.5" fill="{P["muted"]}">{escape(sub)}</text>'
+            + f'<text x="{x + w - 12}" y="{y + 15}" text-anchor="end" font-family="{SANS}" font-size="9" letter-spacing="1.5" fill="{c}">{"UNLOCKED" if on else "LOCKED"}</text>'
         )
     alt = ("Achievements. Unlocked: " + "; ".join(f"{t.title()} ({s})" for o, t, s in ACHIEVEMENTS if o)
            + ". Locked, planned or in progress: " + "; ".join(f"{t.title()} ({s})" for o, t, s in ACHIEVEMENTS if not o) + ".")
@@ -364,7 +344,7 @@ def journey():
     captions in sync. Without animation (reduced motion) everything shows.
     """
     T, start, leg, dwell, fade = 19.2, 0.5, 0.95, 1.1, 18.4
-    top, row = 104, 82
+    top, row = 82, 49
     pts = [(52 if k % 2 == 0 else 92, top + k * row) for k in range(len(JOURNEY))]
     seg = [math.dist(pts[k], pts[k + 1]) for k in range(len(pts) - 1)]
     cum = [0.0]
@@ -392,10 +372,10 @@ def journey():
            "@keyframes pulse{from{transform:scale(1);opacity:.9}to{transform:scale(2.6);opacity:0}}"
            ".spin{animation:spin .25s linear infinite}@keyframes spin{50%{opacity:.35}}")
 
-    body = (f'<rect x="2" y="2" width="716" height="{top + (len(pts) - 1) * row + 54}" rx="14" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
-            f'<text x="28" y="44" font-family="{SANS}" font-size="13" letter-spacing="4" font-weight="700" fill="{P["amber"]}">FLIGHT LOG</text>'
-            f'<text x="692" y="44" text-anchor="end" font-family="{MONO}" font-size="13" fill="{P["muted"]}">{len(pts)} WAYPOINTS · 1 PILOT</text>'
-            f'<line x1="28" y1="60" x2="692" y2="60" stroke="{P["line"]}" stroke-width="1.5"/>')
+    body = (f'<rect x="2" y="2" width="716" height="{top + (len(pts) - 1) * row + 36}" rx="14" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
+            f'<text x="28" y="36" font-family="{SANS}" font-size="13" letter-spacing="4" font-weight="700" fill="{P["amber"]}">FLIGHT LOG</text>'
+            f'<text x="692" y="36" text-anchor="end" font-family="{MONO}" font-size="13" fill="{P["muted"]}">{len(pts)} WAYPOINTS · 1 PILOT</text>'
+            f'<line x1="28" y1="50" x2="692" y2="50" stroke="{P["line"]}" stroke-width="1.5"/>')
     route = " ".join(f"{x},{y}" for x, y in pts)
     body += (f'<polyline points="{route}" fill="none" stroke="{P["line"]}" stroke-width="2.5" stroke-dasharray="4 7"/>'
              f'<polyline class="trail" pathLength="1" points="{route}" fill="none" stroke="{P["teal"]}" stroke-width="3" stroke-linejoin="round"/>')
@@ -410,14 +390,14 @@ def journey():
         body += f'<g class="w{k}"><circle cx="{x}" cy="{y}" r="9" fill="{c}"/>'
         if last:
             body += f'<circle class="pulse" cx="{x}" cy="{y}" r="9" fill="none" stroke="{c}" stroke-width="2.5"/>'
-        body += (f'<text x="136" y="{y - 16}" font-family="{SANS}" font-size="12" letter-spacing="2.5" font-weight="700" fill="{P["amber"]}">{k + 1:02d} · {escape(tag)}</text>'
-                 f'<text x="136" y="{y + 9}" font-family="{SANS}" font-size="21" font-weight="700" fill="{P["text"]}">{escape(title)}</text>'
-                 f'<text x="136" y="{y + 31}" font-family="{MONO}" font-size="15" fill="{c}">{escape(metric)}</text></g>')
+        body += (f'<text x="136" y="{y + 1}" font-family="{SANS}" font-size="20" font-weight="700" fill="{P["text"]}">{escape(title)}</text>'
+                 f'<text x="136" y="{y + 22}"><tspan font-family="{SANS}" font-size="11" letter-spacing="2" font-weight="700" fill="{P["amber"]}">{k + 1:02d} · {escape(tag)}</tspan>'
+                 f'<tspan dx="12" font-family="{MONO}" font-size="14" fill="{c}">{escape(metric)}</tspan></text></g>')
     rotors = "".join(f'<circle class="spin" cx="{sx * 9}" cy="{sy * 9}" r="6" fill="none" stroke="{P["text"]}" stroke-width="2"/>'
                      for sx in (-1, 1) for sy in (-1, 1))
     body += (f'<g class="drone"><path d="M-9 -9 L9 9 M9 -9 L-9 9" stroke="{P["muted"]}" stroke-width="3" stroke-linecap="round"/>'
              f'{rotors}<rect x="-5" y="-5" width="10" height="10" rx="2" fill="{P["amber"]}"/></g>')
-    h = top + (len(pts) - 1) * row + 58
+    h = top + (len(pts) - 1) * row + 40
     alt = "Flight log of my journey, animated as a drone flying a mission route. " + " ".join(
         f"{k + 1}. {t.title()}: {ti} ({m})." for k, (t, ti, m) in enumerate(JOURNEY))
     write("journey.svg", svg(720, h, "Flight log", alt, body, css=css))
@@ -459,19 +439,19 @@ CODING = [("CODECHEF", "1644", "max rating, 3 star"), ("CODESTUDIO", "1741", "ma
 
 def coding():
     w, gap = 226, 6
-    body = (f'<rect x="2" y="2" width="716" height="196" rx="14" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
-            f'<text x="24" y="32" font-family="{SANS}" font-size="12" letter-spacing="3" font-weight="700" fill="{P["amber"]}">COMPETITIVE PROGRAMMING · CODOLIO</text>')
+    body = (f'<rect x="2" y="2" width="716" height="134" rx="14" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
+            f'<text x="24" y="26" font-family="{SANS}" font-size="11.5" letter-spacing="3" font-weight="700" fill="{P["amber"]}">COMPETITIVE PROGRAMMING · MAX RATINGS · CODOLIO</text>')
     for i, (name, val, sub) in enumerate(CODING):
         x = 18 + i * (w + gap)
         c = P["teal"] if i % 2 == 0 else P["amber"]
-        body += (f'<rect x="{x}" y="46" width="{w - 14}" height="86" rx="10" fill="{P["base"]}" stroke="{P["line"]}" stroke-width="1.5"/>'
-                 f'<text x="{x + (w - 14) / 2}" y="68" text-anchor="middle" font-family="{SANS}" font-size="11" letter-spacing="2.5" fill="{P["muted"]}">{name}</text>'
-                 f'<text x="{x + (w - 14) / 2}" y="104" text-anchor="middle" font-family="{MONO}" font-size="36" font-weight="700" fill="{c}">{val}</text>'
-                 f'<text x="{x + (w - 14) / 2}" y="122" text-anchor="middle" font-family="{SANS}" font-size="11" fill="{P["muted"]}">{sub}</text>')
-    c, _ = chips(["645 questions solved", "42 contests", "28-day max streak"], 18, 150, 700, 15)
+        label = f"{name} · 3 STAR" if "3 star" in sub else name
+        body += (f'<rect x="{x}" y="38" width="{w - 14}" height="56" rx="10" fill="{P["base"]}" stroke="{P["line"]}" stroke-width="1.5"/>'
+                 f'<text x="{x + (w - 14) / 2}" y="55" text-anchor="middle" font-family="{SANS}" font-size="10.5" letter-spacing="2.2" fill="{P["muted"]}">{label}</text>'
+                 f'<text x="{x + (w - 14) / 2}" y="85" text-anchor="middle" font-family="{MONO}" font-size="28" font-weight="700" fill="{c}">{val}</text>')
+    c, _ = chips(["645 questions solved", "42 contests", "28-day max streak"], 18, 104, 700, 12.5, ch=24)
     alt = ("Competitive programming on Codolio. Max ratings: CodeChef 1644 (3 star), CodeStudio 1741, CodeForces 1128. "
            "645 questions solved, 42 contests attended, longest streak 28 days.")
-    write("coding.svg", svg(720, 202, "Competitive programming", alt, body + c))
+    write("coding.svg", svg(720, 138, "Competitive programming", alt, body + c))
 
 
 def footer():
@@ -495,7 +475,6 @@ if __name__ == "__main__":
     emblems()
     for c in CARDS:
         card(*c)
-    stats()
     experience()
     skills()
     achievements()

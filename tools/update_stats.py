@@ -105,17 +105,17 @@ def render(total, cur, longest, repos, stars, stamp, source):
         c = P["teal"] if i % 2 == 0 else P["amber"]
         v = "--" if val is None else f"{val:,}"
         body += (
-            f'<rect x="{x:.1f}" y="2" width="{w:.1f}" height="104" rx="12" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
+            f'<rect x="{x:.1f}" y="2" width="{w:.1f}" height="82" rx="12" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
             f'<rect x="{x:.1f}" y="2" width="{w:.1f}" height="5" rx="2" fill="{c}"/>'
-            f'<text x="{x + w / 2:.1f}" y="24" text-anchor="middle" font-family="{SANS}" font-size="9.5" letter-spacing="1.8" fill="{P["muted"]}">{label}</text>'
-            f'<text x="{x + w / 2:.1f}" y="66" text-anchor="middle" font-family="{MONO}" font-size="{34 if len(v) < 5 else 28}" font-weight="700" fill="{c}">{v}</text>'
-            f'<text x="{x + w / 2:.1f}" y="90" text-anchor="middle" font-family="{SANS}" font-size="11" fill="{P["muted"]}">{sub}</text>'
+            f'<text x="{x + w / 2:.1f}" y="22" text-anchor="middle" font-family="{SANS}" font-size="9.5" letter-spacing="1.8" fill="{P["muted"]}">{label}</text>'
+            f'<text x="{x + w / 2:.1f}" y="55" text-anchor="middle" font-family="{MONO}" font-size="{30 if len(v) < 5 else 26}" font-weight="700" fill="{c}">{v}</text>'
+            f'<text x="{x + w / 2:.1f}" y="74" text-anchor="middle" font-family="{SANS}" font-size="11" fill="{P["muted"]}">{sub}</text>'
         )
-    body += (f'<text x="718" y="130" text-anchor="end" font-family="{SANS}" font-size="10.5" fill="{P["muted"]}">'
+    body += (f'<text x="718" y="100" text-anchor="end" font-family="{SANS}" font-size="10.5" fill="{P["muted"]}">'
              f"updated {stamp} UTC {source}</text>")
     alt = (f"Live GitHub stats, updated {stamp} UTC: " + ", ".join(
         f"{l.lower()} {'unavailable' if v is None else v} ({s})" for l, v, s in tiles) + ".")
-    write("github-stats.svg", svg(720, 138, "Live GitHub stats", alt, body))
+    write("github-stats.svg", svg(720, 106, "Live GitHub stats", alt, body))
 
 
 def main():
