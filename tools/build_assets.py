@@ -418,8 +418,9 @@ def footer():
 
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
-    for f in os.listdir(OUT):
-        os.remove(os.path.join(OUT, f))
+    for f in os.listdir(OUT):  # only generated SVGs; keep GIFs, the demo and github-stats.svg
+        if f.endswith(".svg") and f != "github-stats.svg":
+            os.remove(os.path.join(OUT, f))
     banner()
     for i, s in enumerate(SECTIONS, 1):
         section(i, s)
