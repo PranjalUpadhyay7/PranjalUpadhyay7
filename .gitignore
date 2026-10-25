@@ -23,3 +23,6 @@ Thumbs.db
 *.bak
 tmp/
 scratch/
+
+# Project notes (kept out of the repo)
+docs/
