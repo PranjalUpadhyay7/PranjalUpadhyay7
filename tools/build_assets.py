@@ -24,10 +24,14 @@ MONO = "ui-monospace, 'SFMono-Regular', Consolas, 'Liberation Mono', monospace"
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets")
 
 
-def svg(w, h, title, desc, body, rx=0):
+REDUCE = "@media (prefers-reduced-motion: reduce){*{animation:none!important}}"
+
+
+def svg(w, h, title, desc, body, rx=0, css=""):
+    style = f"<style>{css}{REDUCE}</style>\n" if css else ""
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}" role="img">\n'
-        f"<title>{escape(title)}</title>\n<desc>{escape(desc)}</desc>\n"
+        f"<title>{escape(title)}</title>\n<desc>{escape(desc)}</desc>\n{style}"
         f'<rect width="{w}" height="{h}" rx="{rx}" fill="{P["base"]}"/>\n{body}\n</svg>\n'
     )
 
@@ -60,10 +64,11 @@ def banner():
     pts = loss_curve(950, 1160, 40, 310, 60)
     path = " ".join(f"{x:.1f},{y:.1f}" for x, y in pts)
     ex, ey = pts[-1]
+    L = sum(math.dist(pts[i], pts[i + 1]) for i in range(len(pts) - 1)) + 2
     body = (
         grid(1200, 340)
-        + f'<polyline points="{path}" fill="none" stroke="{P["teal"]}" stroke-width="2.5" opacity="0.55"/>'
-        + f'<circle cx="{ex:.1f}" cy="{ey:.1f}" r="6" fill="{P["amber"]}"/>'
+        + f'<polyline class="trace" points="{path}" fill="none" stroke="{P["teal"]}" stroke-width="2.5" opacity="0.55"/>'
+        + f'<circle class="dot" cx="{ex:.1f}" cy="{ey:.1f}" r="6" fill="{P["amber"]}"/>'
         + f'<rect x="64" y="64" width="44" height="4" fill="{P["amber"]}"/>'
         + f'<text x="64" y="112" font-family="{SANS}" font-size="20" letter-spacing="3" fill="{P["teal"]}" font-weight="600">'
         "MACHINE LEARNING ENGINEER · IISER BHOPAL · EXP. MAY 2027</text>"
@@ -80,6 +85,9 @@ def banner():
             "Pranjal Upadhyay, Machine Learning Engineer",
             "Banner: name, role line, and tagline over a faint grid with a decaying loss-curve trace.",
             body,
+            css=f".trace{{stroke-dasharray:{L:.0f};animation:draw 3.2s ease-out both}}@keyframes draw{{from{{stroke-dashoffset:{L:.0f}}}to{{stroke-dashoffset:0}}}}"
+                ".dot{transform-box:fill-box;transform-origin:center;animation:pop 3.2s both,pulse 2s 3.2s infinite ease-in-out}"
+                "@keyframes pop{0%,90%{opacity:0;transform:scale(.2)}100%{opacity:1;transform:scale(1)}}@keyframes pulse{50%{transform:scale(1.7);opacity:.6}}",
         ),
     )
 
@@ -192,14 +200,16 @@ def stats():
         x = i * (w + 16) + 2
         c = P["teal"] if i % 2 == 0 else P["amber"]
         body += (
+            f'<g class="t" style="animation-delay:{i * 0.25:.2f}s">'
             f'<rect x="{x}" y="2" width="{w}" height="116" rx="12" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
             f'<rect x="{x}" y="2" width="{w}" height="5" rx="2" fill="{c}"/>'
             f'<text x="{x + w / 2}" y="60" text-anchor="middle" font-family="{MONO}" font-size="{40 if len(n) < 6 else 30}" font-weight="700" fill="{c}">{escape(n)}</text>'
             f'<text x="{x + w / 2}" y="87" text-anchor="middle" font-family="{SANS}" font-size="12.5" fill="{P["muted"]}">{escape(l1)}</text>'
-            f'<text x="{x + w / 2}" y="105" text-anchor="middle" font-family="{SANS}" font-size="12.5" fill="{P["muted"]}">{escape(l2)}</text>'
+            f'<text x="{x + w / 2}" y="105" text-anchor="middle" font-family="{SANS}" font-size="12.5" fill="{P["muted"]}">{escape(l2)}</text></g>'
         )
     write("stats.svg", svg(720, 120, "Key results",
-          "0 unsafe writes on the 60-task AP-Copilot benchmark; 2x faster OpenVINS update at accuracy parity; about 340x lower control-loop latency for the liquid neural network controller; 3.9 percentage points less forgetting from the DyTox Task-Aware Encoder.", body))
+          "0 unsafe writes on the 60-task AP-Copilot benchmark; 2x faster OpenVINS update at accuracy parity; about 340x lower control-loop latency for the liquid neural network controller; 3.9 percentage points less forgetting from the DyTox Task-Aware Encoder.", body,
+          css=".t{animation:rise .7s ease-out both}@keyframes rise{from{opacity:0;transform:translateY(12px)}}"))
 
 
 CARDS = [
@@ -243,13 +253,14 @@ def card(slug, emb, title, status, tagline, items, alt):
     h = bottom + 22
     body = (
         f'<rect x="2" y="2" width="716" height="{h - 4}" rx="14" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
-        f'<g transform="translate(22,{(h - 120) / 2:.0f}) scale(0.75)">{EMBLEMS[emb]}</g>'
-        f'<text x="172" y="38" font-family="{SANS}" font-size="12" letter-spacing="2.5" fill="{P["amber"]}" font-weight="600">{escape(status)}</text>'
+        f'<g transform="translate(22,{(h - 120) / 2:.0f}) scale(0.75)"><g class="float" style="animation-delay:{(len(slug) % 5) * 0.4:.1f}s">{EMBLEMS[emb]}</g></g>'
+        f'<text class="{"blink" if status.startswith(("IN PROGRESS", "BOSS")) else ""}" x="172" y="38" font-family="{SANS}" font-size="12" letter-spacing="2.5" fill="{P["amber"]}" font-weight="600">{escape(status)}</text>'
         f'<text x="172" y="72" font-family="{SANS}" font-size="28" font-weight="700" fill="{P["text"]}">{escape(title)}</text>'
         f'<text x="172" y="98" font-family="{SANS}" font-size="17" fill="{P["muted"]}">{escape(tagline)}</text>'
         + chip_svg
     )
-    write(f"card-{slug}.svg", svg(720, h, title, alt, body))
+    css = ".float{animation:float 3.4s ease-in-out infinite}@keyframes float{50%{transform:translateY(-5px)}}.blink{animation:blink 1.6s ease-in-out infinite}@keyframes blink{50%{opacity:.35}}"
+    write(f"card-{slug}.svg", svg(720, h, title, alt, body, css=css))
 
 
 def experience():
@@ -313,13 +324,14 @@ def achievements():
         x, y = (i % 3) * (w + g), (i // 3) * (h + g)
         c = (P["teal"], P["amber"])[(i // 3) % 2] if on else P["muted"]
         dash = "" if on else ' stroke-dasharray="6 5"'
+        d = f'style="animation-delay:{i * 0.3:.1f}s"'
         glyph = (
-            f'<circle cx="{x + 30}" cy="{y + 42}" r="16" {stroke(c, 3)}/><path d="M{x + 22} {y + 42} L{x + 28} {y + 48} L{x + 39} {y + 36}" {stroke(c, 3)}/>'
+            f'<g class="glow" {d}><circle cx="{x + 30}" cy="{y + 42}" r="16" {stroke(c, 3)}/><path d="M{x + 22} {y + 42} L{x + 28} {y + 48} L{x + 39} {y + 36}" {stroke(c, 3)}/></g>'
             if on else
-            f'<rect x="{x + 20}" y="{y + 42}" width="20" height="15" rx="3" {stroke(c, 3)}/><path d="M{x + 24} {y + 42} V{y + 36} a6 6 0 0 1 12 0 V{y + 42}" {stroke(c, 3)}/>'
+            f'<g class="lock" {d}><rect x="{x + 20}" y="{y + 42}" width="20" height="15" rx="3" {stroke(c, 3)}/><path d="M{x + 24} {y + 42} V{y + 36} a6 6 0 0 1 12 0 V{y + 42}" {stroke(c, 3)}/></g>'
         )
         body += (
-            f'<rect x="{x + 1}" y="{y + 1}" width="{w - 2}" height="{h - 2}" rx="12" fill="{P["panel"]}" stroke="{P["line"] if on else c}" stroke-width="2"{dash}/>'
+            f'<rect x="{x + 1}" y="{y + 1}" width="{w - 2}" height="{h - 2}" rx="12" fill="{P["panel"]}" stroke="{P["line"] if on else c}" stroke-width="2"{dash}{"" if on else ' class="march"'}/>'
             + glyph
             + f'<text x="{x + 58}" y="{y + 38}" font-family="{SANS}" font-size="13.5" font-weight="700" letter-spacing="0.5" fill="{P["text"] if on else P["muted"]}">{escape(title)}</text>'
             + f'<text x="{x + 58}" y="{y + 58}" font-family="{SANS}" font-size="12" fill="{P["muted"]}">{escape(sub)}</text>'
@@ -327,7 +339,71 @@ def achievements():
         )
     alt = ("Achievements. Unlocked: " + "; ".join(f"{t.title()} ({s})" for o, t, s in ACHIEVEMENTS if o)
            + ". Locked, planned or in progress: " + "; ".join(f"{t.title()} ({s})" for o, t, s in ACHIEVEMENTS if not o) + ".")
-    write("achievements.svg", svg(720, 3 * h + 2 * g, "Achievements", alt, body))
+    css = (".glow{animation:glow 2.4s ease-in-out infinite}@keyframes glow{50%{opacity:.4}}"
+           ".lock{transform-box:fill-box;transform-origin:50% 100%;animation:wob 3.6s ease-in-out infinite}"
+           "@keyframes wob{0%,78%,100%{transform:rotate(0)}82%{transform:rotate(-9deg)}88%{transform:rotate(9deg)}94%{transform:rotate(-4deg)}}"
+           ".march{animation:march 1.8s linear infinite}@keyframes march{to{stroke-dashoffset:-22}}")
+    write("achievements.svg", svg(720, 3 * h + 2 * g, "Achievements", alt, body, css=css))
+
+OPTIONS = [
+    "Why did your DyTox extension make results worse?",
+    "How did an OpenVINS update get 2x faster?",
+    "Why does AP-Copilot's model have no write tool?",
+    "What does a hovering drone do to a VIO filter?",
+    "How do you run YOLO at 4.5 FPS on a Jetson Nano?",
+]
+
+
+def dialogue():
+    n, rh = len(OPTIONS), 40
+    h = 54 + n * rh + 10
+    rows = "".join(
+        f'<text x="64" y="{54 + i * rh + 26}" font-family="{SANS}" font-size="17" fill="{P["text"]}">{escape(t)}</text>'
+        for i, t in enumerate(OPTIONS)
+    )
+    steps = "".join(
+        f"{i * 100 // n}%,{(i + 1) * 100 // n - 1}%{{transform:translateY({i * rh}px)}}" for i in range(n)
+    )
+    css = f".sel{{animation:sel {n * 2.2}s infinite}}@keyframes sel{{{steps}100%{{transform:translateY(0)}}}}"
+    body = (
+        f'<rect x="2" y="2" width="716" height="{h - 4}" rx="14" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
+        f'<text x="24" y="34" font-family="{SANS}" font-size="12" letter-spacing="3" font-weight="700" fill="{P["amber"]}">PICK A DIALOGUE OPTION</text>'
+        f'<g class="sel"><rect x="14" y="54" width="692" height="{rh - 4}" rx="8" fill="{P["base"]}" stroke="{P["teal"]}" stroke-width="1.5"/>'
+        f'<path d="M30 {54 + 11} L44 {54 + 18} L30 {54 + 25} Z" fill="{P["teal"]}"/></g>' + rows
+    )
+    alt = "Dialogue options, ask me: " + " ".join(OPTIONS)
+    write("dialogue.svg", svg(720, h, "Dialogue options", alt, body, css=css))
+
+
+def hud():
+    n_on = sum(1 for o, _, _ in ACHIEVEMENTS if o)
+    cells = [
+        ("PLAYER 1", "PRANJAL"),
+        ("CLASS", "ML ENGINEER"),
+        ("GUILD", "IISER BHOPAL"),
+        ("QUESTS", str(len(CARDS))),
+        ("UNLOCKED", f"{n_on}/{len(ACHIEVEMENTS)}"),
+        ("STATUS", "OPEN TO WORK"),
+    ]
+    ws = [max(len(l) * 7.5, len(v) * 9.2) + 28 + (16 if l == "STATUS" else 0) for l, v in cells]
+    extra = (716 - sum(ws)) / len(cells)
+    ws = [w + extra for w in ws]
+    body = f'<rect x="2" y="2" width="716" height="66" rx="12" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
+    x = 2
+    for (l, v), w in zip(cells, ws):
+        col = P["amber"] if l == "STATUS" else P["teal"]
+        body += (
+            f'<text x="{x + 16:.0f}" y="28" font-family="{SANS}" font-size="10.5" letter-spacing="2.5" fill="{P["muted"]}">{l}</text>'
+            f'<text x="{x + 16:.0f}" y="52" font-family="{MONO}" font-size="15" font-weight="700" fill="{col}">{escape(v)}</text>'
+        )
+        if l == "STATUS":
+            body += f'<rect class="cur" x="{x + 16 + len(v) * 9.2 + 4:.0f}" y="40" width="9" height="15" fill="{col}"/>'
+        x += w
+        if l != "STATUS":
+            body += f'<line x1="{x:.0f}" y1="14" x2="{x:.0f}" y2="56" stroke="{P["line"]}" stroke-width="1.5"/>'
+    css = ".cur{animation:cur 1.1s steps(1) infinite}@keyframes cur{50%{opacity:0}}"
+    write("hud.svg", svg(720, 70, "Player card",
+          f"Player 1: Pranjal. Class: ML engineer. Guild: IISER Bhopal. Quests: {len(CARDS)}. Achievements unlocked: {n_on} of {len(ACHIEVEMENTS)}. Status: open to work.", body, css=css))
 
 
 def footer():
@@ -354,5 +430,7 @@ if __name__ == "__main__":
     experience()
     skills()
     achievements()
+    dialogue()
+    hud()
     footer()
     print("wrote", len(os.listdir(OUT)), "files to", os.path.normpath(OUT))

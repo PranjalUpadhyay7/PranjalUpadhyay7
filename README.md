@@ -1,21 +1,16 @@
 <div align="center">
-<img src="assets/banner.svg" alt="Pranjal Upadhyay, Machine Learning Engineer, IISER Bhopal, expected May 2027. Machine learning systems that are measured, guarded and deployed on real hardware." width="100%">
+<img src="assets/banner.gif" alt="Pranjal Upadhyay, Machine Learning Engineer, IISER Bhopal, expected May 2027. Machine learning systems that are measured, guarded and deployed on real hardware." width="100%">
 </div>
 
 <p align="center"><a href="https://www.linkedin.com/in/pranjal-upadhyay7">LinkedIn</a> · <a href="#quests">Quest log</a> · <a href="#achievements">Achievements</a> · <a href="#start">Press start</a></p>
 
+<p align="center"><img src="assets/hud.svg" alt="Player 1: Pranjal. Class: ML engineer. Guild: IISER Bhopal. Quests: 8. Achievements unlocked: 6 of 9. Status: open to work." width="100%"></p>
+
 <p align="center"><img src="assets/stats.svg" alt="0 unsafe writes on the 60-task AP-Copilot benchmark; 2x faster OpenVINS update at accuracy parity; about 340x lower control-loop latency for the liquid neural network controller; 3.9 percentage points less forgetting from the DyTox Task-Aware Encoder." width="100%"></p>
 
-### What happens when you let an LLM near a flight controller?
+### An LLM near a flight controller? It proposes. A human approves. **It never writes.**
 
-It proposes. A validator checks. A human approves. **It never writes.** That one rule, 60 benchmark tasks and zero unsafe writes is how I like to build: measured, guarded, and running on real hardware, from Jetson boards to drones. I have spent two years in a robotics lab and one summer at TCS Research, and I am looking for full-time ML Engineer roles in India.
-
-**Pick a dialogue option and ask me:**
-- why my DyTox extension made results worse by 3.2 points, and what I traced it to
-- how an OpenVINS update got 2x faster with a mean ATE ratio of 0.98
-- why AP-Copilot's model has no write tool at all
-- what a hovering drone does to a visual-inertial filter
-- what it took to run LEAF-YOLO-s at 4.5 FPS on a Jetson Nano
+<p align="center"><img src="assets/dialogue.gif" alt="Dialogue options, ask me: Why did your DyTox extension make results worse? How did an OpenVINS update get 2x faster? Why does AP-Copilot's model have no write tool? What does a hovering drone do to a VIO filter? How do you run YOLO at 4.5 FPS on a Jetson Nano?" width="100%"></p>
 
 <h2 id="quests"><img src="assets/section-quest-log.svg" alt="Quest log" width="100%"></h2>
 
@@ -27,8 +22,6 @@ It proposes. A validator checks. A human approves. **It never writes.** That one
 <p align="center"><a href="https://github.com/PranjalUpadhyay7/DROID-SLAM-on-OAKD_pro-realtime"><img src="assets/card-droid-slam.svg" alt="My fork of DROID-SLAM (Teed and Deng) that adds a real-time demo driven by a live OAK-D camera stream." width="100%"></a></p>
 <p align="center"><a href="https://github.com/PranjalUpadhyay7/Federated_Learning"><img src="assets/card-federated.svg" alt="Federated Mood Prediction for Early Depression Screening. Flower pipeline predicting 5-class mood from smartphone behavioural signals, DiversityOne dataset, non-IID clients. TabM 69.95%, LSTM 68.28%, within 2% of centralized." width="100%"></a></p>
 <p align="center"><a href="https://devpost.com/software/novalearn-ty2b3k"><img src="assets/card-novalearn.svg" alt="NovaLearn. Planner plus executor multi-agent study companion on four Amazon Nova models through an AWS Bedrock layer; a 4-scene parallel pipeline produces a 24 second animation in about 4 minutes; shipped as a Chrome extension." width="100%"></a></p>
-
-<p align="center">Code: <a href="https://github.com/PranjalUpadhyay7/AP-Copilot">AP-Copilot</a> · <a href="https://github.com/PranjalUpadhyay7/openvins-python-msckf">openvins-python-msckf</a> · <a href="https://github.com/PranjalUpadhyay7/openvins-python-hovering-aware-msckf">openvins-python-hovering-aware-msckf</a> (thesis, GPL-3.0, derived from <a href="https://github.com/rpng/open_vins">OpenVINS</a>) · <a href="https://github.com/PranjalUpadhyay7/Federated_Learning">Federated_Learning</a> · <a href="https://github.com/PranjalUpadhyay7/dytox_modification">dytox_modification</a> (built on <a href="https://github.com/arthurdouillard/dytox">DyTox</a> by Douillard et al.) · <a href="https://github.com/PranjalUpadhyay7/Detection_algo_benchmark">Detection_algo_benchmark</a> · <a href="https://github.com/PranjalUpadhyay7/DROID-SLAM-on-OAKD_pro-realtime">DROID-SLAM-on-OAKD_pro-realtime</a> · <a href="https://devpost.com/software/novalearn-ty2b3k">NovaLearn on DevPost</a></p>
 
 <details>
 <summary><b>AP-Copilot: how a parameter change gets written</b></summary>
@@ -48,6 +41,12 @@ flowchart TD
     H -.->|rejected| L
     W -.->|blocked| L
 ```
+</details>
+
+<details>
+<summary><b>All repos and links</b></summary>
+
+Code: <a href="https://github.com/PranjalUpadhyay7/AP-Copilot">AP-Copilot</a> · <a href="https://github.com/PranjalUpadhyay7/openvins-python-msckf">openvins-python-msckf</a> · <a href="https://github.com/PranjalUpadhyay7/openvins-python-hovering-aware-msckf">openvins-python-hovering-aware-msckf</a> (thesis, GPL-3.0, derived from <a href="https://github.com/rpng/open_vins">OpenVINS</a>) · <a href="https://github.com/PranjalUpadhyay7/Federated_Learning">Federated_Learning</a> · <a href="https://github.com/PranjalUpadhyay7/dytox_modification">dytox_modification</a> (built on <a href="https://github.com/arthurdouillard/dytox">DyTox</a> by Douillard et al.) · <a href="https://github.com/PranjalUpadhyay7/Detection_algo_benchmark">Detection_algo_benchmark</a> · <a href="https://github.com/PranjalUpadhyay7/DROID-SLAM-on-OAKD_pro-realtime">DROID-SLAM-on-OAKD_pro-realtime</a> · <a href="https://devpost.com/software/novalearn-ty2b3k">NovaLearn on DevPost</a>
 </details>
 
 <details>

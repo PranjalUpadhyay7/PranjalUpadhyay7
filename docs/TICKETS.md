@@ -12,3 +12,4 @@
 - T-8 (2026-10-20): visual redesign to cards, stats strip and chip map: Done
 - T-9 (2026-10-21): Mermaid trust-path diagram: Done. Pending owner choice: suggestions 1,4,5,6,12.
 - T-10 (2026-10-25): hooking copy + gamified layout: Done
+- T-11 (2026-10-25): animated SVGs, HUD, dialogue menu, banner/dialogue GIFs, less text: Done
