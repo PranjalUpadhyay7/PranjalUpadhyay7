@@ -352,8 +352,8 @@ def journey():
     Straight legs + linear keyframes keep the drone, the drawn trail and the
     captions in sync. Without animation (reduced motion) everything shows.
     """
-    T, start, leg, dwell, fade = 19.2, 0.5, 0.95, 1.1, 18.4
-    top, row = 82, 49
+    T, start, leg, dwell, fade = 11.5, 0.3, 0.55, 0.7, 11.0
+    top, row = 100, 76
     pts = [(52 if k % 2 == 0 else 92, top + k * row) for k in range(len(JOURNEY))]
     seg = [math.dist(pts[k], pts[k + 1]) for k in range(len(pts) - 1)]
     cum = [0.0]
@@ -381,10 +381,10 @@ def journey():
            "@keyframes pulse{from{transform:scale(1);opacity:.9}to{transform:scale(2.6);opacity:0}}"
            ".spin{animation:spin .25s linear infinite}@keyframes spin{50%{opacity:.35}}")
 
-    body = (f'<rect x="2" y="2" width="716" height="{top + (len(pts) - 1) * row + 36}" rx="14" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
-            f'<text x="28" y="36" font-family="{SANS}" font-size="13" letter-spacing="4" font-weight="700" fill="{P["amber"]}">FLIGHT LOG</text>'
-            f'<text x="692" y="36" text-anchor="end" font-family="{MONO}" font-size="13" fill="{P["muted"]}">{len(pts)} WAYPOINTS · 1 PILOT</text>'
-            f'<line x1="28" y1="50" x2="692" y2="50" stroke="{P["line"]}" stroke-width="1.5"/>')
+    body = (f'<rect x="2" y="2" width="716" height="{top + (len(pts) - 1) * row + 50}" rx="14" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
+            f'<text x="28" y="40" font-family="{SANS}" font-size="13" letter-spacing="4" font-weight="700" fill="{P["amber"]}">FLIGHT LOG</text>'
+            f'<text x="692" y="40" text-anchor="end" font-family="{MONO}" font-size="13" fill="{P["muted"]}">{len(pts)} WAYPOINTS · 1 PILOT</text>'
+            f'<line x1="28" y1="56" x2="692" y2="56" stroke="{P["line"]}" stroke-width="1.5"/>')
     route = " ".join(f"{x},{y}" for x, y in pts)
     body += (f'<polyline points="{route}" fill="none" stroke="{P["line"]}" stroke-width="2.5" stroke-dasharray="4 7"/>'
              f'<polyline class="trail" pathLength="1" points="{route}" fill="none" stroke="{P["teal"]}" stroke-width="3" stroke-linejoin="round"/>')
@@ -394,19 +394,19 @@ def journey():
         a = arrive[k]
         css += (f".w{k}{{animation:w{k} {T}s linear infinite}}"
                 f"@keyframes w{k}{{0%,{pc(max(a - 0.05, 0))}{{opacity:0;transform:translateX(-10px)}}"
-                f"{pc(a + 0.45)},{pc(fade)}{{opacity:1;transform:translateX(0)}}100%{{opacity:0}}}}")
+                f"{pc(a + 0.3)},{pc(fade)}{{opacity:1;transform:translateX(0)}}100%{{opacity:0}}}}")
         body += f'<circle cx="{x}" cy="{y}" r="9" fill="{P["base"]}" stroke="{P["line"]}" stroke-width="2.5"/>'
         body += f'<g class="w{k}"><circle cx="{x}" cy="{y}" r="9" fill="{c}"/>'
         if last:
             body += f'<circle class="pulse" cx="{x}" cy="{y}" r="9" fill="none" stroke="{c}" stroke-width="2.5"/>'
-        body += (f'<text x="136" y="{y + 1}" font-family="{SANS}" font-size="20" font-weight="700" fill="{P["text"]}">{escape(title)}</text>'
-                 f'<text x="136" y="{y + 22}"><tspan font-family="{SANS}" font-size="11" letter-spacing="2" font-weight="700" fill="{P["amber"]}">{k + 1:02d} · {escape(tag)}</tspan>'
-                 f'<tspan dx="12" font-family="{MONO}" font-size="14" fill="{c}">{escape(metric)}</tspan></text></g>')
+        body += (f'<text x="140" y="{y - 15}" font-family="{SANS}" font-size="12" letter-spacing="2.5" font-weight="700" fill="{P["amber"]}">{k + 1:02d} · {escape(tag)}</text>'
+                 f'<text x="140" y="{y + 9}" font-family="{SANS}" font-size="21" font-weight="700" fill="{P["text"]}">{escape(title)}</text>'
+                 f'<text x="140" y="{y + 31}" font-family="{MONO}" font-size="15" fill="{c}">{escape(metric)}</text></g>')
     rotors = "".join(f'<circle class="spin" cx="{sx * 9}" cy="{sy * 9}" r="6" fill="none" stroke="{P["text"]}" stroke-width="2"/>'
                      for sx in (-1, 1) for sy in (-1, 1))
     body += (f'<g class="drone"><path d="M-9 -9 L9 9 M9 -9 L-9 9" stroke="{P["muted"]}" stroke-width="3" stroke-linecap="round"/>'
              f'{rotors}<rect x="-5" y="-5" width="10" height="10" rx="2" fill="{P["amber"]}"/></g>')
-    h = top + (len(pts) - 1) * row + 40
+    h = top + (len(pts) - 1) * row + 54
     alt = "Flight log of my journey, animated as a drone flying a mission route. " + " ".join(
         f"{k + 1}. {t.title()}: {ti} ({m})." for k, (t, ti, m) in enumerate(JOURNEY))
     write("journey.svg", svg(720, h, "Flight log", alt, body, css=css))
