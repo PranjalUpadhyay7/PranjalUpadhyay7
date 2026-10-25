@@ -64,8 +64,6 @@ Code: <a href="https://github.com/PranjalUpadhyay7/AP-Copilot">AP-Copilot</a> ·
 
 <p align="center"><img src="assets/achievements.svg" alt="Achievements. Unlocked: Zero Unsafe Writes (60 tasks, 5 models); 100% Mutants Killed (219/219, validation layer); Honest Reporter (DCPE cost 3.2 pts, shown); 2x Faster (7.5 to 3.7-4.0 ms, ATE 0.98); Light On A Nano (LEAF-YOLO-s, 4.5 FPS); Off The Grid (GNSS-denied, 50-80 m flights). Locked, planned or in progress: Full Swarm Flight (planned target: 8 drones); Paper Published (liquid-NN paper in prep); First ML Role (full-time, India)." width="100%"></p>
 
-<p align="center"><img src="assets/github-stats.svg" alt="Live GitHub stats, refreshed daily by a GitHub Action: contributions and streaks over the last 12 months, and stars earned. Open github.com/PranjalUpadhyay7 for the current numbers." width="100%"></p>
-
 <h2 id="training"><img src="assets/section-training-grounds.svg" alt="Training grounds" width="100%"></h2>
 
 <p align="center"><a href="https://github.com/PranjalUpadhyay7/My_certificates/blob/main/2924342-Pranjal%20Upadhyay%C2%A0.pdf"><img src="assets/experience-tcs.svg" alt="TCS Research and Innovation, Research Intern in AI and Robotics, 12 May to 31 Aug 2025 (certificate linked). Robotic Mobile Manipulation Platform for Retail and Warehouses: PyBullet platform with 4 warehouse scenarios and 20 object categories, RGB-D 6-DoF grasp pose prediction in clutter, PPO policy trained over a 48-hour simulation run, 15 to 30 s per-object pick cycles. Simulation only." width="100%"></a></p>
@@ -75,9 +73,10 @@ Code: <a href="https://github.com/PranjalUpadhyay7/AP-Copilot">AP-Copilot</a> ·
 
 <p align="center"><img src="assets/skills.svg" alt="Skills. ML and deep learning: PyTorch, TabM, LSTM, Transformers, Continual learning, Federated learning, RL (PPO), Object detection. Robotics: VIO (OpenVINS, MSCKF, EKF), Visual SLAM, GNSS-denied navigation, PyBullet, Adaptive control, ROS 2, Drone and edge hardware. GenAI and NLP: LangGraph, Hybrid RAG, Agent guardrails, AWS Bedrock, Whisper. Languages: Python, C++, TypeScript, Rust. Deployment: FastAPI, TensorRT FP16, Jetson Nano and Orin Nano, ArduPilot, pytest and mutmut." width="100%"></p>
 
-<sub>ISRO Hackathon '24 and '25 and Google AI Builder Lab are certificates, not awards. NovaLearn was submitted to the Amazon Nova Hackathon 2025 (no win claimed). CodeChef max rating 1644 (3 star).</sub>
+<p align="center"><a href="https://codolio.com/profile/PranjalUpadhyay"><img src="assets/coding.svg" alt="Competitive programming on Codolio. Max ratings: CodeChef 1644 (3 star), CodeStudio 1741, CodeForces 1128. 645 questions solved, 42 contests attended, longest streak 28 days." width="100%"></a></p>
 
 <h2 id="start"><img src="assets/section-press-start.svg" alt="Press start" width="100%"></h2>
 
 <p align="center"><a href="https://www.linkedin.com/in/pranjal-upadhyay7">linkedin.com/in/pranjal-upadhyay7</a></p>
+<p align="center"><img src="assets/github-stats.svg" alt="Live GitHub stats, refreshed daily by a GitHub Action: contributions and streaks over the last 12 months, and stars earned. Open github.com/PranjalUpadhyay7 for the current numbers." width="100%"></p>
 <p align="center"><img src="assets/footer.svg" alt="Pranjal Upadhyay, Bhopal, India" width="100%"></p>

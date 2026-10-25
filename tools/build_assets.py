@@ -406,6 +406,26 @@ def hud():
           f"Player 1: Pranjal. Class: ML engineer. Guild: IISER Bhopal. Quests: {len(CARDS)}. Achievements unlocked: {n_on} of {len(ACHIEVEMENTS)}. Status: open to work.", body, css=css))
 
 
+CODING = [("CODECHEF", "1644", "max rating, 3 star"), ("CODESTUDIO", "1741", "max rating"), ("CODEFORCES", "1128", "max rating")]
+
+
+def coding():
+    w, gap = 226, 6
+    body = (f'<rect x="2" y="2" width="716" height="196" rx="14" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
+            f'<text x="24" y="32" font-family="{SANS}" font-size="12" letter-spacing="3" font-weight="700" fill="{P["amber"]}">COMPETITIVE PROGRAMMING · CODOLIO</text>')
+    for i, (name, val, sub) in enumerate(CODING):
+        x = 18 + i * (w + gap)
+        c = P["teal"] if i % 2 == 0 else P["amber"]
+        body += (f'<rect x="{x}" y="46" width="{w - 14}" height="86" rx="10" fill="{P["base"]}" stroke="{P["line"]}" stroke-width="1.5"/>'
+                 f'<text x="{x + (w - 14) / 2}" y="68" text-anchor="middle" font-family="{SANS}" font-size="11" letter-spacing="2.5" fill="{P["muted"]}">{name}</text>'
+                 f'<text x="{x + (w - 14) / 2}" y="104" text-anchor="middle" font-family="{MONO}" font-size="36" font-weight="700" fill="{c}">{val}</text>'
+                 f'<text x="{x + (w - 14) / 2}" y="122" text-anchor="middle" font-family="{SANS}" font-size="11" fill="{P["muted"]}">{sub}</text>')
+    c, _ = chips(["645 questions solved", "42 contests", "28-day max streak"], 18, 150, 700, 15)
+    alt = ("Competitive programming on Codolio. Max ratings: CodeChef 1644 (3 star), CodeStudio 1741, CodeForces 1128. "
+           "645 questions solved, 42 contests attended, longest streak 28 days.")
+    write("coding.svg", svg(720, 202, "Competitive programming", alt, body + c))
+
+
 def footer():
     body = (
         f'<line x1="0" y1="1" x2="1200" y2="1" stroke="{P["line"]}" stroke-width="2"/>'
@@ -431,6 +451,7 @@ if __name__ == "__main__":
     experience()
     skills()
     achievements()
+    coding()
     dialogue()
     hud()
     footer()
