@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 56" width="1200" height="56" role="img">
-<title>Closing bar</title>
-<desc>Slim closing bar with a small signal trace.</desc>
-<rect width="1200" height="56" rx="0" fill="#0B1020"/>
-<line x1="0" y1="1" x2="1200" y2="1" stroke="#26345E" stroke-width="2"/><rect x="64" y="22" width="44" height="4" fill="#F5B544"/><text x="124" y="30" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" letter-spacing="4" fill="#8FA0C0">PRANJAL UPADHYAY · BHOPAL, INDIA</text><polyline points="900,36 940,36 952,18 968,44 984,26 1000,36 1136,36" fill="none" stroke="#2DD4BF" stroke-width="2" opacity="0.6"/>
-</svg>
