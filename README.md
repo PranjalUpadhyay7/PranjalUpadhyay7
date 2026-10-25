@@ -75,8 +75,8 @@ Code: <a href="https://github.com/PranjalUpadhyay7/AP-Copilot">AP-Copilot</a> ·
 
 <p align="center"><a href="https://codolio.com/profile/PranjalUpadhyay"><img src="assets/coding.svg" alt="Competitive programming on Codolio. Max ratings: CodeChef 1644 (3 star), CodeStudio 1741, CodeForces 1128. 645 questions solved, 42 contests attended, longest streak 28 days." width="100%"></a></p>
 
-<h2 id="start"><img src="assets/section-press-start.svg" alt="Press start" width="100%"></h2>
+<h2 id="contact"><img src="assets/section-contact.svg" alt="Contact" width="100%"></h2>
 
-<p align="center"><a href="https://www.linkedin.com/in/pranjal-upadhyay7">linkedin.com/in/pranjal-upadhyay7</a></p>
+<p align="center">Open to full-time ML Engineer roles in India. Message me on <a href="https://www.linkedin.com/in/pranjal-upadhyay7"><b>LinkedIn</b></a>.</p>
 <p align="center"><img src="assets/github-stats.svg" alt="Live GitHub stats, refreshed daily by a GitHub Action: contributions and streaks over the last 12 months, and stars earned. Open github.com/PranjalUpadhyay7 for the current numbers." width="100%"></p>
 <p align="center"><img src="assets/footer.svg" alt="Pranjal Upadhyay, Bhopal, India" width="100%"></p>
