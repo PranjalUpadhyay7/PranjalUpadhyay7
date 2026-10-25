@@ -173,7 +173,7 @@ def chip_w(text, size=16):
     return int(len(text) * size * 0.6 + 26)
 
 
-def chips(items, x0, y0, x_max, size=16, color=None, row_h=38):
+def chips(items, x0, y0, x_max, size=16, color=None, row_h=38, ch=30):
     """Flow rounded chips left to right, wrapping at x_max. Returns (svg, bottom_y)."""
     out, x, y = [], x0, y0
     for t in items:
@@ -181,11 +181,11 @@ def chips(items, x0, y0, x_max, size=16, color=None, row_h=38):
         if x + w > x_max and x > x0:
             x, y = x0, y + row_h
         out.append(
-            f'<rect x="{x}" y="{y}" width="{w}" height="30" rx="15" fill="{P["base"]}" stroke="{color or P["line"]}" stroke-width="1.5"/>'
-            f'<text x="{x + 13}" y="{y + 20}" font-family="{MONO}" font-size="{size}" fill="{P["text"]}">{escape(t)}</text>'
+            f'<rect x="{x}" y="{y}" width="{w}" height="{ch}" rx="{ch / 2}" fill="{P["base"]}" stroke="{color or P["line"]}" stroke-width="1.5"/>'
+            f'<text x="{x + 13}" y="{y + ch * 0.5 + size * 0.35:.1f}" font-family="{MONO}" font-size="{size}" fill="{P["text"]}">{escape(t)}</text>'
         )
         x += w + 10
-    return "".join(out), y + 30
+    return "".join(out), y + ch
 
 
 def stats():
@@ -249,17 +249,17 @@ CARDS = [
 
 
 def card(slug, emb, title, status, tagline, items, alt):
-    chip_svg, bottom = chips(items, 172, 118, 700, 15)
-    h = bottom + 22
+    chip_svg, bottom = chips(items, 112, 76, 708, 12.5, row_h=30, ch=24)
+    h = bottom + 10
     body = (
-        f'<rect x="2" y="2" width="716" height="{h - 4}" rx="14" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
-        f'<g transform="translate(22,{(h - 120) / 2:.0f}) scale(0.75)"><g class="float" style="animation-delay:{(len(slug) % 5) * 0.4:.1f}s">{EMBLEMS[emb]}</g></g>'
-        f'<text class="{"blink" if status.startswith(("IN PROGRESS", "BOSS")) else ""}" x="172" y="38" font-family="{SANS}" font-size="12" letter-spacing="2.5" fill="{P["amber"]}" font-weight="600">{escape(status)}</text>'
-        f'<text x="172" y="72" font-family="{SANS}" font-size="28" font-weight="700" fill="{P["text"]}">{escape(title)}</text>'
-        f'<text x="172" y="98" font-family="{SANS}" font-size="17" fill="{P["muted"]}">{escape(tagline)}</text>'
+        f'<rect x="2" y="2" width="716" height="{h - 4}" rx="12" fill="{P["panel"]}" stroke="{P["line"]}" stroke-width="2"/>'
+        f'<g transform="translate(16,{(h - 80) / 2:.0f}) scale(0.5)"><g class="float" style="animation-delay:{(len(slug) % 5) * 0.4:.1f}s">{EMBLEMS[emb]}</g></g>'
+        f'<text class="{"blink" if status.startswith(("IN PROGRESS", "BOSS")) else ""}" x="112" y="22" font-family="{SANS}" font-size="11" letter-spacing="2.2" fill="{P["amber"]}" font-weight="600">{escape(status)}</text>'
+        f'<text x="112" y="46" font-family="{SANS}" font-size="21" font-weight="700" fill="{P["text"]}">{escape(title)}</text>'
+        f'<text x="112" y="66" font-family="{SANS}" font-size="14" fill="{P["muted"]}">{escape(tagline)}</text>'
         + chip_svg
     )
-    css = ".float{animation:float 3.4s ease-in-out infinite}@keyframes float{50%{transform:translateY(-5px)}}.blink{animation:blink 1.6s ease-in-out infinite}@keyframes blink{50%{opacity:.35}}"
+    css = ".float{animation:float 3.4s ease-in-out infinite}@keyframes float{50%{transform:translateY(-6px)}}.blink{animation:blink 1.6s ease-in-out infinite}@keyframes blink{50%{opacity:.35}}"
     write(f"card-{slug}.svg", svg(720, h, title, alt, body, css=css))
 
 
@@ -363,7 +363,7 @@ def journey():
     Straight legs + linear keyframes keep the drone, the drawn trail and the
     captions in sync. Without animation (reduced motion) everything shows.
     """
-    T, start, leg, dwell, fade = 24.0, 0.6, 1.2, 1.4, 23.0
+    T, start, leg, dwell, fade = 19.2, 0.5, 0.95, 1.1, 18.4
     top, row = 104, 82
     pts = [(52 if k % 2 == 0 else 92, top + k * row) for k in range(len(JOURNEY))]
     seg = [math.dist(pts[k], pts[k + 1]) for k in range(len(pts) - 1)]
