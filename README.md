@@ -64,7 +64,7 @@ Code: <a href="https://github.com/PranjalUpadhyay7/AP-Copilot">AP-Copilot</a> ·
 
 <p align="center"><img src="assets/achievements.svg" alt="Achievements. Unlocked: Zero Unsafe Writes (60 tasks, 5 models); 100% Mutants Killed (219/219, validation layer); Honest Reporter (DCPE cost 3.2 pts, shown); 2x Faster (7.5 to 3.7-4.0 ms, ATE 0.98); Light On A Nano (LEAF-YOLO-s, 4.5 FPS); Off The Grid (GNSS-denied, 50-80 m flights). Locked, planned or in progress: Full Swarm Flight (planned target: 8 drones); Paper Published (liquid-NN paper in prep); First ML Role (full-time, India)." width="100%"></p>
 
-<p align="center"><img src="assets/github-stats.svg" alt="Live GitHub stats, refreshed daily by a GitHub Action: contributions and streaks over the last 12 months, own repos and stars earned. Open github.com/PranjalUpadhyay7 for the current numbers." width="100%"></p>
+<p align="center"><img src="assets/github-stats.svg" alt="Live GitHub stats, refreshed daily by a GitHub Action: contributions and streaks over the last 12 months, and stars earned. Open github.com/PranjalUpadhyay7 for the current numbers." width="100%"></p>
 
 <h2 id="training"><img src="assets/section-training-grounds.svg" alt="Training grounds" width="100%"></h2>
 

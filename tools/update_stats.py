@@ -80,10 +80,9 @@ def streaks(days, today=None):
 
 def render(total, cur, longest, repos, stars, stamp, source):
     tiles = [("CONTRIBUTIONS", total, "last 12 months"), ("CURRENT STREAK", cur, "days"),
-             ("LONGEST STREAK", longest, "days, last 12 months"), ("OWN REPOS", repos, "public, non-fork"),
-             ("STARS EARNED", stars, "on own repos")]
+             ("LONGEST STREAK", longest, "days, last 12 months"), ("STARS EARNED", stars, "on own repos")]
     gap = 12
-    w = (716 - gap * 4) / 5
+    w = (716 - gap * 3) / 4
     body = ""
     for i, (label, val, sub) in enumerate(tiles):
         x = 2 + i * (w + gap)
