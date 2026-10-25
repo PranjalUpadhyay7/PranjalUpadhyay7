@@ -3,7 +3,7 @@
 
 In CI: GITHUB_TOKEN and GITHUB_REPOSITORY_OWNER are set by the workflow.
 Locally: GITHUB_TOKEN=... python3 tools/update_stats.py [login]
-Without a token only repo and star counts are filled (REST, unauthenticated);
+Contributions and streaks cover the whole account lifetime. Without a token only star counts are filled (REST, unauthenticated);
 contribution tiles show "--" because contribution data needs GraphQL.
 """
 import datetime as dt
@@ -17,36 +17,52 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from build_assets import MONO, OUT, P, SANS, svg, write  # noqa: E402
 
 QUERY = """
-query($login:String!, $after:String) {
+query($login:String!, $from:DateTime, $to:DateTime) {
   user(login:$login) {
-    contributionsCollection { contributionCalendar { totalContributions
+    createdAt
+    contributionsCollection(from:$from, to:$to) { contributionCalendar {
       weeks { contributionDays { date contributionCount } } } }
-    repositories(ownerAffiliations: OWNER, isFork: false, first: 100, after: $after) {
-      totalCount pageInfo { hasNextPage endCursor } nodes { stargazerCount } }
   }
+}"""
+STARS = """
+query($login:String!, $after:String) {
+  user(login:$login) { repositories(ownerAffiliations: OWNER, isFork: false, first: 100, after: $after) {
+    pageInfo { hasNextPage endCursor } nodes { stargazerCount } } }
 }"""
 
 
+def gql(query, variables, token):
+    body = json.dumps({"query": query, "variables": variables}).encode()
+    req = urllib.request.Request("https://api.github.com/graphql", body,
+                                 {"Authorization": f"bearer {token}", "User-Agent": "profile-stats"})
+    data = json.load(urllib.request.urlopen(req, timeout=30))
+    if "errors" in data:
+        raise RuntimeError(data["errors"])
+    return data["data"]["user"]
+
+
 def graphql(login, token):
-    days, repos, stars, after = [], 0, 0, None
+    """Lifetime days (account creation to now, one calendar year per query) and stars."""
+    now = dt.datetime.now(dt.timezone.utc)
+    created = dt.datetime.fromisoformat(gql(QUERY, {"login": login}, token)["createdAt"].replace("Z", "+00:00"))
+    seen = {}
+    start = created
+    while start < now:
+        end = min(start + dt.timedelta(days=364), now)
+        u = gql(QUERY, {"login": login, "from": start.isoformat(), "to": end.isoformat()}, token)
+        for w in u["contributionsCollection"]["contributionCalendar"]["weeks"]:
+            for d in w["contributionDays"]:
+                seen[d["date"]] = d["contributionCount"]
+        start = end + dt.timedelta(days=1)
+    days = [{"date": k, "contributionCount": v} for k, v in sorted(seen.items())]
+    total = sum(seen.values())
+    stars, after = 0, None
     while True:
-        body = json.dumps({"query": QUERY, "variables": {"login": login, "after": after}}).encode()
-        req = urllib.request.Request("https://api.github.com/graphql", body,
-                                     {"Authorization": f"bearer {token}", "User-Agent": "profile-stats"})
-        data = json.load(urllib.request.urlopen(req, timeout=30))
-        if "errors" in data:
-            raise RuntimeError(data["errors"])
-        u = data["data"]["user"]
-        if after is None:
-            cal = u["contributionsCollection"]["contributionCalendar"]
-            total = cal["totalContributions"]
-            days = [d for w in cal["weeks"] for d in w["contributionDays"]]
-        repos = u["repositories"]["totalCount"]
-        stars += sum(n["stargazerCount"] for n in u["repositories"]["nodes"])
-        page = u["repositories"]["pageInfo"]
-        if not page["hasNextPage"]:
-            return total, days, repos, stars
-        after = page["endCursor"]
+        r = gql(STARS, {"login": login, "after": after}, token)["repositories"]
+        stars += sum(n["stargazerCount"] for n in r["nodes"])
+        if not r["pageInfo"]["hasNextPage"]:
+            return total, days, 0, stars
+        after = r["pageInfo"]["endCursor"]
 
 
 def rest(login):
@@ -79,8 +95,8 @@ def streaks(days, today=None):
 
 
 def render(total, cur, longest, repos, stars, stamp, source):
-    tiles = [("CONTRIBUTIONS", total, "last 12 months"), ("CURRENT STREAK", cur, "days"),
-             ("LONGEST STREAK", longest, "days, last 12 months"), ("STARS EARNED", stars, "on own repos")]
+    tiles = [("CONTRIBUTIONS", total, "all time"), ("CURRENT STREAK", cur, "days"),
+             ("LONGEST STREAK", longest, "days, all time"), ("STARS EARNED", stars, "on own repos")]
     gap = 12
     w = (716 - gap * 3) / 4
     body = ""
