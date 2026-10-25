@@ -156,6 +156,11 @@ def emblems():
            f'<circle cx="136" cy="80" r="6" fill="{A}"/>')
     arms = "".join(f'<path d="M80 80 L{80 + 40 * sx} {80 + 40 * sy}" {stroke(M, 4)}/>' for sx in (-1, 1) for sy in (-1, 1))
     rotors = "".join(f'<circle cx="{80 + 40 * sx}" cy="{80 + 40 * sy}" r="17" {stroke(T, 3.5)}/>' for sx in (-1, 1) for sy in (-1, 1))
+    blocks = "".join(
+        f'<rect x="{30 + c * 26}" y="{46 + r * 26}" width="20" height="20" rx="3" {stroke(A if (r, c) == (1, 1) else T, 3)}/>'
+        for r in range(3) for c in range(3))
+    emblem("project-9.svg", "DODVins", "A grid of memory blocks with speed chevrons.",
+           blocks + f'<path d="M112 62 L128 80 L112 98 M126 62 L142 80 L126 98" {stroke(A, 4)}/>')
     emblem("project-6.svg", "Applied robotics, NIDAR 2.0", "Top-down outline of a quadcopter.",
            arms + rotors + f'<rect x="68" y="68" width="24" height="24" rx="5" {stroke(A, 4, P["panel"])}/>')
     emblem("project-7.svg", "OpenVINS in Python", "A camera pose frustum moving along an estimated trajectory.",
@@ -211,8 +216,12 @@ CARDS = [
      "Liquid neural network adaptive controller with online parameter updates on a background thread; about 340x lower control-loop latency and about 19% lower tracking error than a DNN plus ODE-solver baseline. Journal paper in preparation."),
     ("nidar", "project-6.svg", "Applied Robotics: NIDAR 2.0", "BOSS FIGHT · SWARM IN SIMULATION",
      "8 drones, 1 disaster zone. Simulated, not flown yet.",
-     ["VIO 7.5 → 3.7–4.0 ms", "4.5 FPS YOLO on Jetson Nano", "GNSS-denied, 50–80 m flights"],
-     "NIDAR 2.0, team lead of 6. Building an 8-drone disaster-search swarm; validated in simulation with 2 recon and 4 delivery drones over 10 hectares; the full mission is the planned target. OpenVINS backend update 7.5 ms to 3.7 to 4.0 ms; LEAF-YOLO-s at 4.5 to 4.6 FPS on a Jetson Nano; GNSS-denied navigation flight-validated at 50 to 80 m."),
+     ["4.5 FPS YOLO on Jetson Nano", "GNSS-denied, 50–80 m flights"],
+     "NIDAR 2.0, team lead of 6. Building an 8-drone disaster-search swarm; validated in simulation with 2 recon and 4 delivery drones over 10 hectares; the full mission is the planned target. LEAF-YOLO-s at 4.5 to 4.6 FPS on a Jetson Nano; GNSS-denied navigation flight-validated at 50 to 80 m."),
+    ("dodvins", "project-9.svg", "DODVins: OpenVINS, but faster", "TEAM LEAD · PAPER · PUBLIC REPO",
+     "Team of 3: Shafwan Safi, Nikhil Vashisht and me",
+     ["1.76–2.10x faster", "ATE 0.156 vs 0.158 m"],
+     "DODVins, a data-oriented C++ reimplementation of the OpenVINS MSCKF visual-inertial odometry pipeline, by Shafwan Safi, Nikhil Vashisht and Pranjal Upadhyay (project lead). Same filter equations, different memory layout. On ten public sequences in the same toolchain container it matches OpenVINS accuracy (mean ATE 0.156 m vs 0.158 m, better on 4 of 10) while running 1.76 to 2.10x faster end to end, and it is faster on all ten on a Jetson Orin Nano. Paper and presentation are in the repo."),
     ("openvins-python", "project-7.svg", "OpenVINS in Python", "QUEST COMPLETE · BS THESIS · PUBLIC REPOS",
      "Rebuilt a VIO estimator, then taught it to spot hovering",
      ["Python port of OpenVINS MSCKF", "hovering-aware FIFO/LIFO mode", "BS thesis, Apr 2026"],
@@ -288,7 +297,7 @@ ACHIEVEMENTS = [
     (True, "ZERO UNSAFE WRITES", "60 tasks, 5 models"),
     (True, "100% MUTANTS KILLED", "219/219, validation layer"),
     (True, "HONEST REPORTER", "DCPE cost 3.2 pts, shown"),
-    (True, "2X FASTER", "7.5 → 3.7–4.0 ms, ATE 0.98"),
+    (True, "OUTPACED OPENVINS", "1.76–2.10x, same accuracy"),
     (True, "LIGHT ON A NANO", "LEAF-YOLO-s, 4.5 FPS"),
     (True, "OFF THE GRID", "GNSS-denied, 50–80 m flights"),
     (False, "FULL SWARM FLIGHT", "planned target: 8 drones"),
@@ -330,7 +339,7 @@ JOURNEY = [
     ("FIRST REPS", "Learned to think fast in contests", "645 problems · CodeChef max 1644"),
     ("FIRST RESEARCH", "Made a transformer forget less", "forgetting 18.7% → 14.8%"),
     ("TCS RESEARCH · 2025", "Taught a robot gripper to pick, in simulation", "PPO policy · 20 object categories"),
-    ("MOON LAB", "Flew drones where GPS can't reach", "VIO update 2x faster · flights at 50–80 m"),
+    ("MOON LAB", "Flew drones where GPS can't reach", "VIO 1.76–2.10x faster · flights at 50–80 m"),
     ("THESIS · APR 2026", "Rebuilt OpenVINS in Python, made it hover-aware", "both repos open source"),
     ("AP-COPILOT · 2026", "Built an LLM that can't write to the drone", "60 tasks · 0 unsafe writes"),
     ("NEXT WAYPOINT", "Your team.", "full-time ML Engineer · India"),
