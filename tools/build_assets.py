@@ -84,7 +84,7 @@ def banner():
     )
 
 
-SECTIONS = ["SELECTED WORK", "EXPERIENCE", "SKILLS", "CONTACT"]
+SECTIONS = ["QUEST LOG", "ACHIEVEMENTS", "TRAINING GROUNDS", "INVENTORY", "PRESS START"]
 
 
 def section(i, label):
@@ -203,36 +203,36 @@ def stats():
 
 
 CARDS = [
-    ("ap-copilot", "project-1.svg", "AP-Copilot", "PUBLIC REPO",
-     "LLM agent that configures ArduPilot, guarded by validators",
+    ("ap-copilot", "project-1.svg", "AP-Copilot", "QUEST COMPLETE · PUBLIC REPO",
+     "The LLM can propose. It can never write.",
      ["31/60 → 59/60 tasks", "0 unsafe writes", "480 tests", "219/219 mutants killed"],
      "AP-Copilot, public repo. A safety-critical LLM agent that configures ArduPilot/Pixhawk parameters from plain-language requests; the model has no write tool, and deterministic validation plus a human-approval gate decide. Hybrid RAG with BM25, embeddings and RRF. On a 60-task benchmark the full system passed 59/60 for gpt-oss-20b versus 31/60 with retrieval and validation removed; no model produced an unsafe write on the full system. 480 tests, 219/219 mutants killed in the validation layer."),
-    ("federated", "project-2.svg", "Federated Mood Prediction", "PUBLIC REPO",
-     "Federated mood screening from phone signals, 8 countries",
+    ("federated", "project-2.svg", "Federated Mood Prediction", "QUEST COMPLETE · PUBLIC REPO",
+     "Mood screening where every participant is a client",
      ["TabM 69.95%", "LSTM 68.28%", "within 2% of centralized"],
      "Federated Mood Prediction for Early Depression Screening. Flower pipeline predicting 5-class mood from smartphone behavioural signals, DiversityOne dataset, non-IID clients. TabM 69.95%, LSTM 68.28%, within 2% of centralized."),
-    ("novalearn", "project-3.svg", "NovaLearn", "AMAZON NOVA HACKATHON 2025",
-     "Multi-agent study companion on 4 Amazon Nova models",
+    ("novalearn", "project-3.svg", "NovaLearn", "SUBMITTED · AMAZON NOVA HACKATHON 2025",
+     "A study session in, a 24-second animation out",
      ["24 s animation in ~4 min", "Chrome extension"],
      "NovaLearn. Planner plus executor multi-agent study companion on four Amazon Nova models through an AWS Bedrock layer; a 4-scene parallel pipeline produces a 24 second animation in about 4 minutes; shipped as a Chrome extension."),
-    ("dytox", "project-4.svg", "DyTox Modification", "PUBLIC REPO",
-     "Continual-learning transformer: one win, one failure",
+    ("dytox", "project-4.svg", "DyTox Modification", "QUEST COMPLETE · PUBLIC REPO",
+     "One extension helped. One cost 3.2 points. Both shown.",
      ["forgetting 18.7 → 14.8%", "DCPE cost 3.2–3.3 pts"],
      "Two extensions to the DyTox continual-learning transformer on CIFAR-100. The Task-Aware Encoder cut forgetting from 18.7% to 14.8%. Dynamic Contextual Positional Embeddings cost 3.2 to 3.3 points, which I report."),
-    ("liquid-nn", "project-5.svg", "Liquid NN Controller", "PAPER IN PREPARATION",
-     "Liquid-NN adaptive controller with online updates",
+    ("liquid-nn", "project-5.svg", "Liquid NN Controller", "IN PROGRESS · PAPER IN PREPARATION",
+     "A controller that keeps adapting without blocking",
      ["~340x lower latency", "~19% lower tracking error"],
      "Liquid neural network adaptive controller with online parameter updates on a background thread; about 340x lower control-loop latency and about 19% lower tracking error than a DNN plus ODE-solver baseline. Journal paper in preparation."),
-    ("nidar", "project-6.svg", "Applied Robotics: NIDAR 2.0", "SWARM IN SIMULATION · BENCHMARK PUBLIC",
-     "8-drone disaster-search swarm. Team lead, 6 members.",
+    ("nidar", "project-6.svg", "Applied Robotics: NIDAR 2.0", "BOSS FIGHT · SWARM IN SIMULATION",
+     "8 drones, 1 disaster zone. Simulated, not flown yet.",
      ["VIO 7.5 → 3.7–4.0 ms", "4.5 FPS YOLO on Jetson Nano", "GNSS-denied, 50–80 m flights"],
      "NIDAR 2.0, team lead of 6. Building an 8-drone disaster-search swarm; validated in simulation with 2 recon and 4 delivery drones over 10 hectares; the full mission is the planned target. OpenVINS backend update 7.5 ms to 3.7 to 4.0 ms; LEAF-YOLO-s at 4.5 to 4.6 FPS on a Jetson Nano; GNSS-denied navigation flight-validated at 50 to 80 m."),
-    ("openvins-python", "project-7.svg", "OpenVINS in Python", "PUBLIC REPOS · BS THESIS",
-     "Python MSCKF port plus a hovering-aware extension",
+    ("openvins-python", "project-7.svg", "OpenVINS in Python", "QUEST COMPLETE · BS THESIS · PUBLIC REPOS",
+     "Rebuilt a VIO estimator, then taught it to spot hovering",
      ["Python port of OpenVINS MSCKF", "hovering-aware FIFO/LIFO mode", "BS thesis, Apr 2026"],
      "A Python port of the OpenVINS MSCKF visual-inertial estimator, plus a hovering-aware extension that implements the motion-classification algorithm of Kottas, Wu and Roumeliotis (IROS 2014), for which no reference code was published. It is the implementation behind my BS thesis at IISER Bhopal (April 2026). Validated on a Jetson Orin Nano UAV against the KAIST VIO benchmark and a custom hovering flight dataset."),
-    ("droid-slam", "project-8.svg", "DROID-SLAM on OAK-D", "PUBLIC REPO",
-     "Real-time visual SLAM from a live OAK-D camera",
+    ("droid-slam", "project-8.svg", "DROID-SLAM on OAK-D", "SIDE QUEST · PUBLIC REPO",
+     "Deep visual SLAM, live from an OAK-D camera",
      ["fork of DROID-SLAM", "live OAK-D demo"],
      "My fork of DROID-SLAM (Teed and Deng) that adds a real-time demo driven by a live OAK-D camera stream."),
 ]
@@ -293,6 +293,42 @@ def skills():
     write("skills.svg", svg(720, y, "Skills", alt, body))
 
 
+ACHIEVEMENTS = [
+    (True, "ZERO UNSAFE WRITES", "60 tasks, 5 models"),
+    (True, "100% MUTANTS KILLED", "219/219, validation layer"),
+    (True, "HONEST REPORTER", "DCPE cost 3.2 pts, shown"),
+    (True, "2X FASTER", "7.5 → 3.7–4.0 ms, ATE 0.98"),
+    (True, "LIGHT ON A NANO", "LEAF-YOLO-s, 4.5 FPS"),
+    (True, "OFF THE GRID", "GNSS-denied, 50–80 m flights"),
+    (False, "FULL SWARM FLIGHT", "planned target: 8 drones"),
+    (False, "PAPER PUBLISHED", "liquid-NN paper in prep"),
+    (False, "FIRST ML ROLE", "full-time, India: you?"),
+]
+
+
+def achievements():
+    w, h, g = 232, 84, 12
+    body = ""
+    for i, (on, title, sub) in enumerate(ACHIEVEMENTS):
+        x, y = (i % 3) * (w + g), (i // 3) * (h + g)
+        c = (P["teal"], P["amber"])[(i // 3) % 2] if on else P["muted"]
+        dash = "" if on else ' stroke-dasharray="6 5"'
+        glyph = (
+            f'<circle cx="{x + 30}" cy="{y + 42}" r="16" {stroke(c, 3)}/><path d="M{x + 22} {y + 42} L{x + 28} {y + 48} L{x + 39} {y + 36}" {stroke(c, 3)}/>'
+            if on else
+            f'<rect x="{x + 20}" y="{y + 42}" width="20" height="15" rx="3" {stroke(c, 3)}/><path d="M{x + 24} {y + 42} V{y + 36} a6 6 0 0 1 12 0 V{y + 42}" {stroke(c, 3)}/>'
+        )
+        body += (
+            f'<rect x="{x + 1}" y="{y + 1}" width="{w - 2}" height="{h - 2}" rx="12" fill="{P["panel"]}" stroke="{P["line"] if on else c}" stroke-width="2"{dash}/>'
+            + glyph
+            + f'<text x="{x + 58}" y="{y + 38}" font-family="{SANS}" font-size="13.5" font-weight="700" letter-spacing="0.5" fill="{P["text"] if on else P["muted"]}">{escape(title)}</text>'
+            + f'<text x="{x + 58}" y="{y + 58}" font-family="{SANS}" font-size="12" fill="{P["muted"]}">{escape(sub)}</text>'
+            + f'<text x="{x + w - 12}" y="{y + 18}" text-anchor="end" font-family="{SANS}" font-size="9.5" letter-spacing="1.5" fill="{c}">{"UNLOCKED" if on else "LOCKED"}</text>'
+        )
+    alt = ("Achievements. Unlocked: " + "; ".join(f"{t.title()} ({s})" for o, t, s in ACHIEVEMENTS if o)
+           + ". Locked, planned or in progress: " + "; ".join(f"{t.title()} ({s})" for o, t, s in ACHIEVEMENTS if not o) + ".")
+    write("achievements.svg", svg(720, 3 * h + 2 * g, "Achievements", alt, body))
+
 
 def footer():
     body = (
@@ -317,5 +353,6 @@ if __name__ == "__main__":
     stats()
     experience()
     skills()
+    achievements()
     footer()
     print("wrote", len(os.listdir(OUT)), "files to", os.path.normpath(OUT))
